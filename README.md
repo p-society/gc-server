@@ -22,7 +22,7 @@ gCScore Broadcasting System seamlessly bridges web and app platforms, improving 
 ----------------------------------------
 <div align="center">
   
-**gCSB** is a live score broadcasting application designed for both web and app platforms. The application is built using Golang, Postgres, SSE (Server-Sent Events), and Redis. The web version is being developed using Next.js, while the app version is built using Flutter.
+**gCSB** is a live score broadcasting application designed for both web and app platforms. The application is built using Golang, MongoDB, SSE (Server-Sent Events), and Redis. The web version is being developed using Next.js, while the app version is built using Flutter.
 </div>
 <div align="center">
 <br/>
