@@ -9,14 +9,20 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-func Test() []primitive.M {
-	cur, err := basketballdb.Collection.Find(context.Background(), bson.D{})
+func TeamWisePlayers(team string) []primitive.M {
+	cur, err := basketballdb.Collection.Find(context.Background(), bson.D{{Key: "team", Value: team}})
 
 	if err != nil {
 		log.Fatal("Error:", err)
 	}
 
 	var Players []primitive.M
+
+	metaData := primitive.M{
+		"api_source":"basketball/get-teamwise-player",
+	}
+
+	Players = append(Players, metaData);
 
 	for cur.Next(context.Background()) {
 		var player bson.M

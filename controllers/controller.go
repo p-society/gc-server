@@ -2,13 +2,16 @@ package controller
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/p-society/gcbs/helper"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-func GetAllPlayers(w http.ResponseWriter, r *http.Request) {
-	var allPlayers []primitive.M = helper.Test()
+func GetTeamWisePlayers(w http.ResponseWriter, r *http.Request) {
+	queryParams := r.URL.Query()
+	team := queryParams.Get("team")
+	fmt.Println("team: ", team)
+	allPlayers := helper.TeamWisePlayers(team)
 	json.NewEncoder(w).Encode(allPlayers)
 }

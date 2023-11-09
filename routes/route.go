@@ -8,6 +8,6 @@ import (
 func Router() *mux.Router {
 	r := mux.NewRouter()
 
-	r.HandleFunc("/get-players", controller.GetAllPlayers).Methods("GET")
+	r.HandleFunc("/get-teamwise-players", controller.GetTeamWisePlayers).Methods("GET")
 	return r
 }
