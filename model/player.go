@@ -5,9 +5,9 @@ import (
 )
 
 type Player struct {
+	Name      string             `json:"name,omitempty"`
 	ID        primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty"`
 	ImageLink string             `json:"imageLink,omitempty"`
-	Team      string             `json:"team,omitempty"`
 	Position  string             `json:"pos,omitempty"`
 	Branch    string             `json:"branch,omitempty"`
 	Year      int                `json:"year,omitempty"`
