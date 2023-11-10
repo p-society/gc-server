@@ -3,7 +3,7 @@ name: Build
 on:
   push:
     branches:
-      - @api/basketball
+      - api/basketball
 
 jobs:
   build:
