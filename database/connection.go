@@ -15,7 +15,7 @@ var Collection *mongo.Collection
 // Initiator function which runs automatically at the start of application
 // This function connects to the DB and returns collection instances which is used for DB actions.
 func init() {
-	const connectionString = "mongodb+srv://linux-skg:XIdk2SmXDNFXVDUx@sports.vj9j4tb.mongodb.net/?retryWrites=true&w=majority"
+	const connectionString = ""
 	const databaseName = "basketball"
 	const collection1_Name = "in-match-scoring"
 
