@@ -43,14 +43,14 @@ gCBS offers two primary benefits to its users.
 [Current contributors](#Currentcontributors) - [License](#License)
 -->
 ----------------------------------------
-# Installation 
+<!--# Installation 
 <!--
 1. Clone the repository.
 2. Navigate to the directory.
 3. Install the necessary dependencies.
 4. Run the application using the designated commands.
 -->
-To be updated
+<!--To be updated
 
 ## How it works <a name="How it works"></a>
 
@@ -65,7 +65,7 @@ To Be Updated .
 * Ask for help at our [GitHub Discussions](https://github.com/gCBS/gCBS/discussions).
 * Ask a question at [Stackoverflow](https://stackoverflow.com/questions/tagged/gCBS) with a gCBS tag.
 -->
-To be updated.
+<!--To be updated.
 
 ## Contributing <a name="Contributing"></a>
 <!--
@@ -83,7 +83,7 @@ This project is released with a [Contributor Code of Conduct](https://github.com
 
 Also, check out the [rewards and community programs](https://gCBS.com/community?utm_medium=community&utm_source=github&utm_campaign=gCBS%20repo).
 -->
-To be updated.
+<!--To be updated.-->
 
 ### Current contributors <a name="Current contributors"></a>
 
@@ -92,13 +92,11 @@ To be updated.
 </a>
 
 Made with [contributors-img](https://contributors-img.web.app).
-
+<!--
 ## Subscribe to updates
 <!--
 Join our [Discord Server](https://gCBS.com/joincommunity) and subscribe to this repository[Developer Newsletter](https://gCBS.com/newsletter/?utm_medium=community&utm_source=github&utm_campaign=gCBS%20repo) to get updates, information about gCBS 
 -->
-To be updated
-
-## License <a name="License"></a>
+# License <a name="License"></a>
 
 gCBS is licensed under [MIT License](https://github.com/gCBS/gCBS/blob/master/LICENSE)
