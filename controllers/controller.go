@@ -37,3 +37,33 @@ func UploadTeamPlayer(w http.ResponseWriter, r *http.Request) {
 
 	json.NewEncoder(w).Encode(res)
 }
+
+func UpdateTeamPlayer(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Update Request Incoming.")
+	var updatePlayer playerModel.Player
+	_ = json.NewDecoder(r.Body).Decode(&updatePlayer)
+
+	res := map[string]interface{}{}
+
+	for key, val := range map[string]interface{}{
+		"Name":      updatePlayer.Name,
+		"ID":        updatePlayer.ID,
+		"ImageLink": updatePlayer.ImageLink,
+		"Position":  updatePlayer.Position,
+		"Branch":    updatePlayer.Branch,
+		"Year":      updatePlayer.Year,
+		"Age":       updatePlayer.Age,
+		"Instagram": updatePlayer.Instagram,
+		"Minutes":   updatePlayer.Minutes,
+		"Rebounds":  updatePlayer.Rebounds,
+		"Assists":   updatePlayer.Assists,
+		"Points":    updatePlayer.Points,
+	} {
+		if val == 0 || val == "" {
+			continue
+		}
+		res[key] = val
+	}
+
+	json.NewEncoder(w).Encode(updatePlayer)
+}

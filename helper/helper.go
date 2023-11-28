@@ -18,7 +18,6 @@ import (
 @Params:
 team string --> extracted from URL
 */
-
 func TeamWisePlayers(team string) []primitive.M {
 
 	//creating a cursor instance for query's matching documents
@@ -69,7 +68,34 @@ func UploadTeamPlayer(player playerModel.Player) *mongo.InsertOneResult {
 	return inserted
 }
 
-func UpdateTeamPlayer(query map[string]string) {
+func UpdateTeamPlayer(updatePlayer playerModel.Player) {
+
+	res := map[string]interface{}{}
+
+	for key, val := range map[string]interface{}{
+		"Name":      updatePlayer.Name,
+		"ID":        updatePlayer.ID,
+		"ImageLink": updatePlayer.ImageLink,
+		"Position":  updatePlayer.Position,
+		"Branch":    updatePlayer.Branch,
+		"Year":      updatePlayer.Year,
+		"Age":       updatePlayer.Age,
+		"Instagram": updatePlayer.Instagram,
+		"Minutes":   updatePlayer.Minutes,
+		"Rebounds":  updatePlayer.Rebounds,
+		"Assists":   updatePlayer.Assists,
+		"Points":    updatePlayer.Points,
+	} {
+		if val == 0 || val == "" {
+			continue
+		}
+		fmt.Println("Key , Value:", key, val)
+		res[key] = val
+	}
+
+	fmt.Println("Updated Player -->", res)
+
+	// updateDoc := bson.M{"$set": bson.M{"team": newTeam, "title": newTitle}}
 
 	// updated, err := basketballdb.Collection.UpdateOne(context.TODO(), bson.D{})
 }
