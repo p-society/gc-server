@@ -19,4 +19,6 @@ jobs:
           go-version: 1.21.0
 
       - name: Build API
-        run: go build -o apiserver .
+
+        run: go build -o mywebserver .
+
