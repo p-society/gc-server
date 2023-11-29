@@ -26,7 +26,7 @@ gCScore Broadcasting System seamlessly bridges web and app platforms, improving 
 </div>
 <div align="center">
 <br/>
-<img src='https://skillicons.dev/icons?i=go,dart,mongodb,redis,flutter,nextjs' ></img>
+<img src='https://skillicons.dev/icons?i=go,nodejs,dart,mongodb,redis,flutter,nextjs' ></img>
 
 </div>
 <br/>
