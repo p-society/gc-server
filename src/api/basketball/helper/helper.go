@@ -18,16 +18,15 @@ import (
 @Params:
 team string --> extracted from URL
 */
-func TeamWisePlayers(team string) []primitive.M {
+func TeamWisePlayers(branch string) []primitive.M {
 
 	//creating a cursor instance for query's matching documents
-	cur, err := basketballdb.Collection.Find(context.Background(), bson.D{{Key: "team", Value: team}})
+	cur, err := basketballdb.Collection.Find(context.Background(), bson.D{{Key: "branch", Value: branch}})
 
 	//handling error
 	if err != nil {
 		log.Fatal("Error:", err)
 	}
-
 	// data structure to be sent as response
 	var Players []primitive.M
 
@@ -68,34 +67,42 @@ func UploadTeamPlayer(player playerModel.Player) *mongo.InsertOneResult {
 	return inserted
 }
 
-func UpdateTeamPlayer(updatePlayer playerModel.Player) {
+func GetPlayerByName(name string) (playerModel.Player, error) {
+	var player playerModel.Player
 
-	res := map[string]interface{}{}
+	// Construct the filter
+	filter := bson.D{{Key: "name", Value: name}}
+	fmt.Println("Filter:", filter)
 
-	for key, val := range map[string]interface{}{
-		"Name":      updatePlayer.Name,
-		"ID":        updatePlayer.ID,
-		"ImageLink": updatePlayer.ImageLink,
-		"Position":  updatePlayer.Position,
-		"Branch":    updatePlayer.Branch,
-		"Year":      updatePlayer.Year,
-		"Age":       updatePlayer.Age,
-		"Instagram": updatePlayer.Instagram,
-		"Minutes":   updatePlayer.Minutes,
-		"Rebounds":  updatePlayer.Rebounds,
-		"Assists":   updatePlayer.Assists,
-		"Points":    updatePlayer.Points,
-	} {
-		if val == 0 || val == "" {
-			continue
+	// Find the player in the database
+	result := basketballdb.Collection.FindOne(context.TODO(), filter)
+	if result.Err() != nil {
+		if result.Err() == mongo.ErrNoDocuments {
+			fmt.Println("Player not found")
+			return player, fmt.Errorf("Player not found")
 		}
-		fmt.Println("Key , Value:", key, val)
-		res[key] = val
+		log.Println("Error finding player:", result.Err())
+		return player, result.Err()
 	}
 
-	fmt.Println("Updated Player -->", res)
+	// Decode the player data
+	err := result.Decode(&player)
+	if err != nil {
+		log.Println("Error decoding player:", err)
+		return player, err
+	}
 
-	// updateDoc := bson.M{"$set": bson.M{"team": newTeam, "title": newTitle}}
+	// Log the retrieved player
+	fmt.Println("Retrieved Player:", player)
+	return player, nil
+}
 
-	// updated, err := basketballdb.Collection.UpdateOne(context.TODO(), bson.D{})
+func UpdateTeamPlayer(name string, college_id string) playerModel.Player {
+	updatePlayer, err := GetPlayerByName(name)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Player to be Updated :", updatePlayer)
+	fmt.Println("Returning...")
+	return updatePlayer
 }

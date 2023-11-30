@@ -10,6 +10,6 @@ func Router() *mux.Router {
 
 	r.HandleFunc("/get-teamwise-players", controller.GetTeamWisePlayers).Methods("GET")
 	r.HandleFunc("/upload-player", controller.UploadTeamPlayer).Methods("POST")
-	r.HandleFunc("/update-player", controller.UpdateTeamPlayer).Methods("PUT")
+	r.HandleFunc("/update-player", controller.UpdateTeamPlayer).Methods("POST")
 	return r
 }

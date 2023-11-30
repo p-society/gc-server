@@ -37,33 +37,24 @@ func UploadTeamPlayer(w http.ResponseWriter, r *http.Request) {
 
 	json.NewEncoder(w).Encode(res)
 }
+type RequestBody struct {
+	Name      string `json:"name"`
+	CollegeID string `json:"college_id"`
+}
 
 func UpdateTeamPlayer(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Update Request Incoming.")
-	var updatePlayer playerModel.Player
-	_ = json.NewDecoder(r.Body).Decode(&updatePlayer)
-
-	res := map[string]interface{}{}
-
-	for key, val := range map[string]interface{}{
-		"Name":      updatePlayer.Name,
-		"ID":        updatePlayer.ID,
-		"ImageLink": updatePlayer.ImageLink,
-		"Position":  updatePlayer.Position,
-		"Branch":    updatePlayer.Branch,
-		"Year":      updatePlayer.Year,
-		"Age":       updatePlayer.Age,
-		"Instagram": updatePlayer.Instagram,
-		"Minutes":   updatePlayer.Minutes,
-		"Rebounds":  updatePlayer.Rebounds,
-		"Assists":   updatePlayer.Assists,
-		"Points":    updatePlayer.Points,
-	} {
-		if val == 0 || val == "" {
-			continue
-		}
-		res[key] = val
+	var requestBody RequestBody
+	err := json.NewDecoder(r.Body).Decode(&requestBody)
+	if err != nil {
+		http.Error(w, "Error decoding request body", http.StatusBadRequest)
+		return
 	}
-
-	json.NewEncoder(w).Encode(updatePlayer)
+	fmt.Println("In Controller,name::", requestBody.Name)
+	player,err := helper.GetPlayerByName(requestBody.Name)
+	if err != nil {
+		http.Error(w, "Error decoding request body", http.StatusBadRequest)
+		return
+	}
+	json.NewEncoder(w).Encode(player)
 }

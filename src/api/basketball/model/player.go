@@ -18,4 +18,5 @@ type Player struct {
 	Rebounds  int                `json:"reb,omitempty"`
 	Assists   int                `json:"ast,omitempty"`
 	Points    int                `json:"pts,omitempty"`
+	CollegeId string             `json:"college_id,omitempty"`
 }
