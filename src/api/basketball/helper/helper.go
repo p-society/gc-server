@@ -60,7 +60,7 @@ func UploadTeamPlayer(player playerModel.Player) *mongo.InsertOneResult {
 	inserted, err := basketballdb.Collection.InsertOne(context.TODO(), player)
 
 	if err != nil {
-		log.Fatal("Error occured while inserting in db @helper/UploadTeamPlayer")
+		log.Fatal("Error occured while inserting in db @helper/UploadTeamPlayer",err)
 	}
 
 	fmt.Println("Registration Done :", inserted)

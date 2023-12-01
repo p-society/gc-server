@@ -4,11 +4,16 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-//BSON IS IMPORTANT !
-
 // Player data structure (Acting as ORM ) for Basketball Players.
+
+/*
+Bson tags are essential for linking struct literals to the corresponding database fields.
+They serve as a mapping mechanism between Go structs and the underlying database representation.
+They provide a clear association between struct fields and their counterparts in the database. This mapping ensures proper serialization
+and deserialization of data when interacting with databases.
+*/
 type Player struct {
-	Name      string             `json:"name,omitempty"`
+	Name      string             `json:"name,omitempty" bson:"name,omitempty"`
 	ID        primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty"`
 	ImageLink string             `json:"imageLink,omitempty" bson:"imageLink,omitempty"`
 	Position  string             `json:"pos,omitempty" bson:"pos,omitempty"`
