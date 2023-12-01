@@ -28,7 +28,7 @@ func UploadTeamPlayer(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Request Incoming")
 	var player playerModel.Player
 	_ = json.NewDecoder(r.Body).Decode(&player)
-	fmt.Println("player", player)
+	fmt.Println("player points ::", player.Points)
 	insertedVal := helper.UploadTeamPlayer(player)
 
 	var res = map[string]*mongo.InsertOneResult{
@@ -37,24 +37,30 @@ func UploadTeamPlayer(w http.ResponseWriter, r *http.Request) {
 
 	json.NewEncoder(w).Encode(res)
 }
-type RequestBody struct {
-	Name      string `json:"name"`
-	CollegeID string `json:"college_id"`
-}
 
 func UpdateTeamPlayer(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Update Request Incoming.")
-	var requestBody RequestBody
+
+	var requestBody struct {
+		Name            string `json:"name"`
+		IncrementPoint  int    `json:"incrementPoint"`
+		IncrementAssist int    `json:"incrementAssist"`
+	}
+
 	err := json.NewDecoder(r.Body).Decode(&requestBody)
+	fmt.Println(requestBody)
+
 	if err != nil {
-		http.Error(w, "Error decoding request body", http.StatusBadRequest)
+		http.Error(w, "Error decoding request body: "+err.Error(), http.StatusBadRequest)
 		return
 	}
-	fmt.Println("In Controller,name::", requestBody.Name)
-	player,err := helper.GetPlayerByName(requestBody.Name)
+	player, err := helper.GetPlayerByName(requestBody.Name)
+
 	if err != nil {
-		http.Error(w, "Error decoding request body", http.StatusBadRequest)
+		http.Error(w, "Error fetching player from the database: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
-	json.NewEncoder(w).Encode(player)
+	player = helper.IncrementPlayerStats(player, requestBody)
+	updatedPlayer := helper.UpdateTeamPlayer(player)
+
+	json.NewEncoder(w).Encode(updatedPlayer)
 }

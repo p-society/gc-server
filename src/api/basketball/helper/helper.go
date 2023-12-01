@@ -56,6 +56,7 @@ func TeamWisePlayers(branch string) []primitive.M {
 }
 
 func UploadTeamPlayer(player playerModel.Player) *mongo.InsertOneResult {
+	fmt.Println("Recv UTP ::",player);
 	inserted, err := basketballdb.Collection.InsertOne(context.TODO(), player)
 
 	if err != nil {
@@ -72,10 +73,9 @@ func GetPlayerByName(name string) (playerModel.Player, error) {
 
 	// Construct the filter
 	filter := bson.D{{Key: "name", Value: name}}
-	fmt.Println("Filter:", filter)
 
 	// Find the player in the database
-	result := basketballdb.Collection.FindOne(context.TODO(), filter)
+	result := basketballdb.Collection.FindOne(context.Background(), filter)
 	if result.Err() != nil {
 		if result.Err() == mongo.ErrNoDocuments {
 			fmt.Println("Player not found")
@@ -84,7 +84,6 @@ func GetPlayerByName(name string) (playerModel.Player, error) {
 		log.Println("Error finding player:", result.Err())
 		return player, result.Err()
 	}
-
 	// Decode the player data
 	err := result.Decode(&player)
 	if err != nil {
@@ -92,17 +91,35 @@ func GetPlayerByName(name string) (playerModel.Player, error) {
 		return player, err
 	}
 
-	// Log the retrieved player
-	fmt.Println("Retrieved Player:", player)
 	return player, nil
 }
 
-func UpdateTeamPlayer(name string, college_id string) playerModel.Player {
-	updatePlayer, err := GetPlayerByName(name)
-	if err != nil {
-		log.Fatal(err)
+
+	type requestBody struct {
+		Name           string `json:"name"`
+		IncrementPoint int    `json:"incrementPoint"`
+		IncrementAssist int    `json:"incrementAssist"`
 	}
-	fmt.Println("Player to be Updated :", updatePlayer)
-	fmt.Println("Returning...")
-	return updatePlayer
-}
+
+
+	func IncrementPlayerStats(player playerModel.Player, IncrementStats requestBody ) (playerModel.Player) {
+		fmt.Println("b4 pts::",player.Points);
+		fmt.Println("b4 ast::",player.Assists);
+		player.Points+=IncrementStats.IncrementPoint;
+		player.Assists+=IncrementStats.IncrementAssist;
+		fmt.Println("IncrementePLayerStats pts::",player.Points);
+		fmt.Println("IncrementePLayerStats ast::",player.Assists);
+		return player
+	}
+
+	func UpdateTeamPlayer(player playerModel.Player) (*mongo.UpdateResult) {
+		fmt.Println("recv pts::",player.Points);
+		fmt.Println("recv ast::",player.Assists);
+		update := bson.D{{"$set", bson.D{{"pts", player.Points},{"ast", player.Assists}}}}
+		updateRes,err :=basketballdb.Collection.UpdateByID(context.TODO(),player.ID,update)
+		if err != nil {
+			fmt.Println(err);
+		}
+		fmt.Println(updateRes);
+		return updateRes;
+	}
