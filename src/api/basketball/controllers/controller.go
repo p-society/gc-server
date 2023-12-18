@@ -28,7 +28,7 @@ func UploadTeamPlayer(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Request Incoming")
 	var player playerModel.Player
 	_ = json.NewDecoder(r.Body).Decode(&player)
-	fmt.Println("player", player)
+	fmt.Println("player points ::", player.Points)
 	insertedVal := helper.UploadTeamPlayer(player)
 
 	var res = map[string]*mongo.InsertOneResult{
@@ -39,31 +39,28 @@ func UploadTeamPlayer(w http.ResponseWriter, r *http.Request) {
 }
 
 func UpdateTeamPlayer(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Update Request Incoming.")
-	var updatePlayer playerModel.Player
-	_ = json.NewDecoder(r.Body).Decode(&updatePlayer)
 
-	res := map[string]interface{}{}
-
-	for key, val := range map[string]interface{}{
-		"Name":      updatePlayer.Name,
-		"ID":        updatePlayer.ID,
-		"ImageLink": updatePlayer.ImageLink,
-		"Position":  updatePlayer.Position,
-		"Branch":    updatePlayer.Branch,
-		"Year":      updatePlayer.Year,
-		"Age":       updatePlayer.Age,
-		"Instagram": updatePlayer.Instagram,
-		"Minutes":   updatePlayer.Minutes,
-		"Rebounds":  updatePlayer.Rebounds,
-		"Assists":   updatePlayer.Assists,
-		"Points":    updatePlayer.Points,
-	} {
-		if val == 0 || val == "" {
-			continue
-		}
-		res[key] = val
+	var requestBody struct {
+		Name            string `json:"name"`
+		IncrementPoint  int    `json:"incrementPoint"`
+		IncrementAssist int    `json:"incrementAssist"`
 	}
 
-	json.NewEncoder(w).Encode(updatePlayer)
+	err := json.NewDecoder(r.Body).Decode(&requestBody)
+	fmt.Println(requestBody)
+
+	if err != nil {
+		http.Error(w, "Error decoding request body: "+err.Error(), http.StatusBadRequest)
+		return
+	}
+	player, err := helper.GetPlayerByName(requestBody.Name)
+
+	if err != nil {
+		http.Error(w, "Error fetching player from the database: "+err.Error(), http.StatusInternalServerError)
+		return
+	}
+	player = helper.IncrementPlayerStats(player, requestBody)
+	updatedPlayer := helper.UpdateTeamPlayer(player)
+
+	json.NewEncoder(w).Encode(updatedPlayer)
 }

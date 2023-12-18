@@ -18,16 +18,15 @@ import (
 @Params:
 team string --> extracted from URL
 */
-func TeamWisePlayers(team string) []primitive.M {
+func TeamWisePlayers(branch string) []primitive.M {
 
 	//creating a cursor instance for query's matching documents
-	cur, err := basketballdb.Collection.Find(context.Background(), bson.D{{Key: "team", Value: team}})
+	cur, err := basketballdb.Collection.Find(context.Background(), bson.D{{Key: "branch", Value: branch}})
 
 	//handling error
 	if err != nil {
 		log.Fatal("Error:", err)
 	}
-
 	// data structure to be sent as response
 	var Players []primitive.M
 
@@ -57,10 +56,11 @@ func TeamWisePlayers(team string) []primitive.M {
 }
 
 func UploadTeamPlayer(player playerModel.Player) *mongo.InsertOneResult {
+	fmt.Println("Recv UTP ::",player);
 	inserted, err := basketballdb.Collection.InsertOne(context.TODO(), player)
 
 	if err != nil {
-		log.Fatal("Error occured while inserting in db @helper/UploadTeamPlayer")
+		log.Fatal("Error occured while inserting in db @helper/UploadTeamPlayer",err)
 	}
 
 	fmt.Println("Registration Done :", inserted)
@@ -68,34 +68,58 @@ func UploadTeamPlayer(player playerModel.Player) *mongo.InsertOneResult {
 	return inserted
 }
 
-func UpdateTeamPlayer(updatePlayer playerModel.Player) {
+func GetPlayerByName(name string) (playerModel.Player, error) {
+	var player playerModel.Player
 
-	res := map[string]interface{}{}
+	// Construct the filter
+	filter := bson.D{{Key: "name", Value: name}}
 
-	for key, val := range map[string]interface{}{
-		"Name":      updatePlayer.Name,
-		"ID":        updatePlayer.ID,
-		"ImageLink": updatePlayer.ImageLink,
-		"Position":  updatePlayer.Position,
-		"Branch":    updatePlayer.Branch,
-		"Year":      updatePlayer.Year,
-		"Age":       updatePlayer.Age,
-		"Instagram": updatePlayer.Instagram,
-		"Minutes":   updatePlayer.Minutes,
-		"Rebounds":  updatePlayer.Rebounds,
-		"Assists":   updatePlayer.Assists,
-		"Points":    updatePlayer.Points,
-	} {
-		if val == 0 || val == "" {
-			continue
+	// Find the player in the database
+	result := basketballdb.Collection.FindOne(context.Background(), filter)
+	if result.Err() != nil {
+		if result.Err() == mongo.ErrNoDocuments {
+			fmt.Println("Player not found")
+			return player, fmt.Errorf("Player not found")
 		}
-		fmt.Println("Key , Value:", key, val)
-		res[key] = val
+		log.Println("Error finding player:", result.Err())
+		return player, result.Err()
+	}
+	// Decode the player data
+	err := result.Decode(&player)
+	if err != nil {
+		log.Println("Error decoding player:", err)
+		return player, err
 	}
 
-	fmt.Println("Updated Player -->", res)
-
-	// updateDoc := bson.M{"$set": bson.M{"team": newTeam, "title": newTitle}}
-
-	// updated, err := basketballdb.Collection.UpdateOne(context.TODO(), bson.D{})
+	return player, nil
 }
+
+
+	type requestBody struct {
+		Name           string `json:"name"`
+		IncrementPoint int    `json:"incrementPoint"`
+		IncrementAssist int    `json:"incrementAssist"`
+	}
+
+
+	func IncrementPlayerStats(player playerModel.Player, IncrementStats requestBody ) (playerModel.Player) {
+		fmt.Println("b4 pts::",player.Points);
+		fmt.Println("b4 ast::",player.Assists);
+		player.Points+=IncrementStats.IncrementPoint;
+		player.Assists+=IncrementStats.IncrementAssist;
+		fmt.Println("IncrementePLayerStats pts::",player.Points);
+		fmt.Println("IncrementePLayerStats ast::",player.Assists);
+		return player
+	}
+
+	func UpdateTeamPlayer(player playerModel.Player) (*mongo.UpdateResult) {
+		fmt.Println("recv pts::",player.Points);
+		fmt.Println("recv ast::",player.Assists);
+		update := bson.D{{"$set", bson.D{{"pts", player.Points},{"ast", player.Assists}}}}
+		updateRes,err :=basketballdb.Collection.UpdateByID(context.TODO(),player.ID,update)
+		if err != nil {
+			fmt.Println(err);
+		}
+		fmt.Println(updateRes);
+		return updateRes;
+	}
