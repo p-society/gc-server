@@ -20,3 +20,5 @@ secrets
 
 # Go workspace file
 go.work
+node_modules
+.env*
