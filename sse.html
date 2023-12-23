@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SSE Example</title>
+</head>
+<body>
+  <h1>Server-Sent Events (SSE) Example</h1>
+  <div id="sse-data"></div>
+
+  <script>
+    const sseData = document.getElementById('sse-data');
+    const eventSource = new EventSource('http:/127.0.0.1:3000/sse');
+
+    eventSource.onmessage = function(event) {
+      sseData.innerText = `Server Time: ${event.data}`;
+    };
+  </script>
+</body>
+</html>
