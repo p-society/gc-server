@@ -20,7 +20,9 @@ jobs:
           go-version: 1.21.4
 
       - name: Update & Download Deps
-        run: go mod tidy
+        run: |
+            cd src/api/basketball
+            go mod tidy
 
       - name: Build API
         run: go build -C src/api/basketball/ -o basketball_gcsb
