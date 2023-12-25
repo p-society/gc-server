@@ -3,13 +3,46 @@ package controller
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"log"
+	"mime/multipart"
 	"net/http"
 
+	basketballdb "github.com/p-society/gcbs/database"
 	"github.com/p-society/gcbs/helper"
 	playerModel "github.com/p-society/gcbs/model"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/gridfs"
 )
+
+func BasketballRegistration(w http.ResponseWriter, r *http.Request) {
+	//file, handler, err := r.FormFile("image")
+	//kal subah karunga. 😴💤
+}
+
+func uploadImageToGridFS(RAW__IMAGE__FILE multipart.File, fileName string) error {
+
+	bucket, err := gridfs.NewBucket(basketballdb.Database)
+
+	if err != nil {
+		return err
+	}
+
+	ImageUploadStream, err := bucket.OpenUploadStream(fileName)
+
+	if err != nil {
+		return err
+	}
+	defer ImageUploadStream.Close()
+
+	_, err = io.Copy(ImageUploadStream, RAW__IMAGE__FILE)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
 
 func GetTeamWisePlayers(w http.ResponseWriter, r *http.Request) {
 	queryParams := r.URL.Query()

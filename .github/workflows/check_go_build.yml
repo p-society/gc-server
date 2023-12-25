@@ -1,0 +1,30 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - api/basketball
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.21.4
+
+      - name: Update & Download Deps
+        run: |
+            cd src/api/basketball
+            go mod tidy
+
+      - name: Build API
+        run: go build -C src/api/basketball/ -o basketball_gcsb
+
+
