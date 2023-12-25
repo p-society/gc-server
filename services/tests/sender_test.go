@@ -1,4 +1,4 @@
-package mail
+package sendertest
 
 import (
 	"fmt"
@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/joho/godotenv"
-	mail "github.com/p-society/gCSB"
+	function "github.com/p-society/gCSB/functions"
 )
 
 func TestSendEmailWithGmail(t *testing.T) {
@@ -19,8 +19,7 @@ func TestSendEmailWithGmail(t *testing.T) {
 	senderAddress := os.Getenv("EMAIL_SENDER_ADDRESS")
 	senderPassword := os.Getenv("EMAIL_SENDER_PASSWORD")
 
-	sender := mail.NewGmailSender(senderName, senderAddress, senderPassword)
-
+	sender := function.NewGmailSender(senderName, senderAddress, senderPassword)
 	subject := "A test Email"
 	content := `
 	<h1>Welcome to GCSB.</h1>

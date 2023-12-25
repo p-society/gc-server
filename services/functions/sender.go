@@ -1,4 +1,4 @@
-package mail
+package function
 
 import (
 	"fmt"
@@ -56,42 +56,9 @@ func (sender *GmailSender) SendEmail(subject, content string, to, cc, bcc, attac
 	/*PlainAuth returns an Auth that implements the PLAIN authentication mechanism as defined in RFC 4616. The returned Auth uses the given username and password to authenticate to host and act as identity. Usually identity should be the empty string, to act as username.
 
 	PlainAuth will only send the credentials if the connection is using TLS or is connected to localhost. Otherwise authentication will fail with an error, without sending the credentials.*/
-	
+
 	smtpAuth := smtp.PlainAuth("", sender.fromEmailAddress, sender.fromEmailPassword, smtpAuthAddress)
 	fmt.Println("OKOK")
 
 	return e.Send(smtpServerAddress, smtpAuth)
 }
-
-// func main() {
-// 	err := godotenv.Load()
-// 	if err != nil {
-// 		fmt.Println("Error loading .env")
-// 		return
-// 	}
-
-// 	senderName := os.Getenv("EMAIL_SENDER_NAME")
-// 	senderAddress := os.Getenv("EMAIL_SENDER_ADDRESS")
-// 	senderPassword := os.Getenv("EMAIL_SENDER_PASSWORD")
-
-// 	sender := NewGmailSender(senderName, senderAddress, senderPassword)
-
-// 	subject := "A test Email"
-// 	content := `
-// 	<h1>Welcome to GCSB.</h1>
-// 	<p>Ignore the Mail name.</p>
-// 	<code>Keep the counter low,Jesse</code>
-// 	`
-
-// 	to := []string{"b422056@iiit-bh.ac.in"}
-// 	attachFiles := []string{"../README.md"}
-
-// 	err = sender.SendEmail(subject, content, to, nil, nil, attachFiles)
-
-// 	if err != nil {
-// 		fmt.Println("Error : ", err)
-// 		return
-// 	}
-
-// 	fmt.Println("Sucess")
-// }
