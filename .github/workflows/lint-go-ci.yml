@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - api/basketball
+      - main
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -16,11 +17,12 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: 1.21.0
-
+            
       - name: Install golint
         run: |
+          cd src/api/basketball
+          go mod tidy
           go get -u golang.org/x/lint/golint
-          go install golang.org/x/lint/golint
 
       - name: Run golint
-        run: golint ./...
+        run: golint 
