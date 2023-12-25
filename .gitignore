@@ -16,7 +16,9 @@ secrets
 *.out
 
 # Dependency directories (remove the comment below to include it)
-# vendor/
+vendor/
+src/api/basketball/.env
+
 
 # Go workspace file
 go.work

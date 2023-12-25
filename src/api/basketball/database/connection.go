@@ -19,13 +19,13 @@ var Database *mongo.Database
 // This function connects to the DB and returns collection instances which is used for DB actions.
 func init() {
 	err := godotenv.Load()
+
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-
+	fmt.Println("Env Loaded Successfully.")
 	// Access environment variables
-	dbLink := os.Getenv("MONGODB_URI")
-
+	dbLink := os.Getenv("MONGO_URI")
 	const databaseName = "basketball"
 	const collection1_Name = "teams"
 
