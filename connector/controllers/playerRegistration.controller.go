@@ -15,12 +15,19 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-func generateOTP() int {
+const otpValidityMinutes = 5
+
+func generateOTP() (int, time.Time) {
 	rand.Seed(time.Now().UnixNano())
 
 	randomNumber := rand.Intn(10000) + 10000
+	expirationTime := time.Now().Add(otpValidityMinutes * time.Minute)
 
-	return randomNumber
+	return randomNumber, expirationTime
+}
+
+func isOTPValid(expirationTime time.Time) bool {
+	return time.Now().Before(expirationTime)
 }
 
 func PlayerRegistrationController(w http.ResponseWriter, r *http.Request) {
@@ -31,10 +38,10 @@ func PlayerRegistrationController(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	OTP := generateOTP()
+	OTP, expirationTime := generateOTP()
 	player.OTP = OTP
 	player.Verified = false
-
+	player.OTPExpiration = expirationTime
 	inserted, err := generaldb.Collection.InsertOne(r.Context(), player)
 
 	content := `
@@ -123,7 +130,7 @@ func VerifyPlayerController(w http.ResponseWriter, r *http.Request) {
 	res := generaldb.Collection.FindOne(r.Context(), filter)
 	res.Decode(&player)
 
-	if player.OTP == message.ReceivedOTP {
+	if isOTPValid(player.OTPExpiration) && player.OTP == message.ReceivedOTP {
 
 		filter := bson.M{"name": player.Name}
 
@@ -143,10 +150,10 @@ func VerifyPlayerController(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(updres)
 
 		w.Write([]byte("Verified!"))
-	}else{
+	} else {
 		json.NewEncoder(w).Encode(map[string]interface{}{
-			"err":"OTP validation failed,Invalid OTP!",
-		})	
+			"err": "OTP validation failed,Either Timed Out or Invalid OTP!",
+		})
 	}
 
 }
