@@ -20,6 +20,7 @@ secrets
 vendor/
 src/api/basketball/.env
 services/mailing/.env
+connector/.env
 
 # Go workspace file
 go.work

@@ -21,7 +21,7 @@ func main() {
 	}
 
 	r.HandleFunc("/send-mail", MailRequestHandler).Methods("POST")
-
+	fmt.Println("Server live at :6969");
 	http.ListenAndServe(":6969", r)
 }
 
@@ -56,7 +56,7 @@ func MailRequestHandler(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println(paramInstance)
 
-	err = sender.SendEmail(paramInstance.Subject, paramInstance.Content, paramInstance.To, paramInstance.Cc, paramInstance.Bcc, paramInstance.AttachFiles)
+	err = sender.SendEmail(paramInstance.Subject, paramInstance.Content, paramInstance.To,nil,nil,nil)
 
 	if err != nil {
 		jsonPayload := `{"err": "` + err.Error() + `"}`
@@ -68,4 +68,5 @@ func MailRequestHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Println("Sucess")
+	w.Write([]byte("Success"))	
 }
