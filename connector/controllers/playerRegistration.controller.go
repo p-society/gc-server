@@ -1,10 +1,8 @@
 package playerRegistation
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"math/rand"
 	"net/http"
 	"strconv"
@@ -12,15 +10,10 @@ import (
 	"time"
 
 	generaldb "github.com/p-society/gCSB/connector/db"
+	mailer "github.com/p-society/gCSB/connector/helpers"
+	tempModel "github.com/p-society/gCSB/connector/model"
+	"go.mongodb.org/mongo-driver/bson"
 )
-
-type PlayerTemp struct {
-	Name     string                   `json:"name,omitempty" bson:"name,omitempty"`
-	Sport    string                   `json:"sport,omitempty" bson:"sport,omitempty"`
-	Email    string                   `json:"email,omitempty" bson:"email,omitempty"`
-	MetaData []map[string]interface{} `json:"metadata,omitempty" bson:"metadata,omitempty"`
-	OTP      int                      `bson:"otp"`
-}
 
 func generateOTP() int {
 	rand.Seed(time.Now().UnixNano())
@@ -31,7 +24,7 @@ func generateOTP() int {
 }
 
 func PlayerRegistrationController(w http.ResponseWriter, r *http.Request) {
-	var player PlayerTemp
+	var player tempModel.PlayerTemp
 	err := json.NewDecoder(r.Body).Decode(&player)
 	if err != nil {
 		fmt.Println(err)
@@ -40,6 +33,10 @@ func PlayerRegistrationController(w http.ResponseWriter, r *http.Request) {
 
 	OTP := generateOTP()
 	player.OTP = OTP
+	player.Verified = false
+
+	inserted, err := generaldb.Collection.InsertOne(r.Context(), player)
+
 	content := `
 	<html>
 		<body style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #f5f5f5; color: #333; text-align: center; padding: 20px;">
@@ -64,7 +61,7 @@ func PlayerRegistrationController(w http.ResponseWriter, r *http.Request) {
 		</body>
 	</html>`
 
-subject := "Player Email Verification - GCSB"
+	subject := "Player Email Verification - GCSB"
 
 	var wg sync.WaitGroup
 
@@ -73,12 +70,10 @@ subject := "Player Email Verification - GCSB"
 
 	go func() {
 		defer wg.Done()
-		val := sendMail(content, subject, player.Email)
+		val := mailer.SendMail(content, subject, player.Email)
 		ch <- val
 		close(ch)
 	}()
-
-	inserted, err := generaldb.Collection.InsertOne(r.Context(), player)
 
 	fmt.Println("val:", <-ch)
 	wg.Wait()
@@ -88,7 +83,12 @@ subject := "Player Email Verification - GCSB"
 		return
 	}
 
-	err = json.NewEncoder(w).Encode(inserted)
+	jsonPayload := map[string]interface{}{
+		"inserted": inserted,
+		"message":  "Verify yourself by plugging the OTP sent on you email provided.",
+	}
+
+	err = json.NewEncoder(w).Encode(jsonPayload)
 
 	if err != nil {
 		fmt.Println(err)
@@ -97,53 +97,56 @@ subject := "Player Email Verification - GCSB"
 
 }
 
-func sendMail(content, subject, to string) string {
-	url := "http://localhost:6969/send-mail"
+type CallbackMessage struct {
+	Name        string `json:"name,omitempty" bson:"name,omitempty"`
+	ReceivedOTP int    `json:"otp"`
+}
 
-	// Create a JSON payload
-	payload := map[string]interface{}{
-		"content": content,
-		"subject": subject,
-		"to": []string{
-			to,
-		},
-	}
+func VerifyPlayerController(w http.ResponseWriter, r *http.Request) {
 
-	// Marshal the payload to JSON
-	jsonPayload, err := json.Marshal(payload)
+	var (
+		message CallbackMessage
+		player  tempModel.PlayerTemp
+	)
+
+	err := json.NewDecoder(r.Body).Decode(&message)
+
 	if err != nil {
-		fmt.Println("Error encoding JSON:", err)
-		return err.Error()
+		fmt.Println(err)
+		return
 	}
 
-	// Create a new request with a POST method and the JSON payload
-	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonPayload))
-	if err != nil {
-		fmt.Println("Error creating request:", err)
-		return err.Error()
+	filter := bson.M{
+		"name": message.Name,
 	}
 
-	// Set the Content-Type header to indicate JSON
-	req.Header.Set("Content-Type", "application/json")
+	res := generaldb.Collection.FindOne(r.Context(), filter)
+	res.Decode(&player)
 
-	// Make the request
-	client := &http.Client{}
-	resp, err := client.Do(req)
-	if err != nil {
-		fmt.Println("Error making request:", err)
-		return err.Error()
+	if player.OTP == message.ReceivedOTP {
+
+		filter := bson.M{"name": player.Name}
+
+		update := bson.D{
+			{"$set", bson.D{
+				{"verified", true},
+			}},
+		}
+
+		fmt.Println("User is Certified Stoner")
+		updres, err := generaldb.Collection.UpdateOne(r.Context(), filter, update)
+
+		if err != nil {
+			fmt.Println("err:", err)
+			json.NewEncoder(w).Encode(err)
+		}
+		fmt.Println(updres)
+
+		w.Write([]byte("Verified!"))
+	}else{
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"err":"OTP validation failed,Invalid OTP!",
+		})	
 	}
-	defer resp.Body.Close()
 
-	// Read the response body
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		fmt.Println("Error reading response body:", err)
-		return err.Error()
-	}
-
-	// Print the response status and body
-	fmt.Println("Response Status:", resp.Status)
-	fmt.Println("Response Body:", string(body))
-	return string(body)
 }

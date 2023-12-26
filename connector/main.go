@@ -15,7 +15,7 @@ func main() {
 	r := mux.NewRouter()
 
 	r.HandleFunc("/register/player", playerRegistation.PlayerRegistrationController)
-
+	r.HandleFunc("/verify/player",playerRegistation.VerifyPlayerController)
 	var wg sync.WaitGroup
 	wg.Add(1)
 	go func() {
