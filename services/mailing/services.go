@@ -68,5 +68,5 @@ func MailRequestHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Println("Sucess")
-	w.Write([]byte("Success"))	
+	w.Write([]byte("E-mail sent Successfully."))	
 }
