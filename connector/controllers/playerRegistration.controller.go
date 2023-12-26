@@ -3,6 +3,7 @@ package playerRegistation
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"math/rand"
 	"net/http"
 	"strconv"
@@ -137,6 +138,8 @@ func VerifyPlayerController(w http.ResponseWriter, r *http.Request) {
 		update := bson.D{
 			{"$set", bson.D{
 				{"verified", true},
+				{"otp", ""},
+				{"otpexpirationtime", "infinite"},
 			}},
 		}
 
@@ -156,4 +159,60 @@ func VerifyPlayerController(w http.ResponseWriter, r *http.Request) {
 		})
 	}
 
+}
+
+const CAPTAIN_UNIQUE_KEY = "iiitbbsr"
+
+/*
+Captain is manually added to the <sport>:<collection> by default.
+Work of Captain is to select the players and create the roster.
+*/
+
+type CaptainResponseCreator struct {
+	Team  string `json:"team,omitempty"`
+	Sport string `json:"sport,omitempty"`
+}
+
+func CaptainFetchController(w http.ResponseWriter, r *http.Request) {
+
+	var capFilter CaptainResponseCreator
+	var players []tempModel.PlayerTemp
+	err := json.NewDecoder(r.Body).Decode(&capFilter)
+
+	if err != nil {
+		json.NewEncoder(w).Encode(err)
+		fmt.Println(err)
+		return
+	}
+
+	filter := bson.M{}
+
+	cursor, err := generaldb.Collection.Find(r.Context(), filter)
+
+	if err != nil {
+		json.NewEncoder(w).Encode(err)
+		fmt.Println(err)
+		return
+	}
+
+	defer cursor.Close(r.Context())
+
+	for cursor.Next(r.Context()) {
+		var player tempModel.PlayerTemp
+		err := cursor.Decode(&player)
+		if err != nil {
+			log.Fatal(err)
+		}
+		players = append(players, player)
+	}
+
+	// Checking for errors during cursor iteration
+	if err := cursor.Err(); err != nil {
+		log.Fatal(err)
+	}
+
+	// Print or process the retrieved documents
+	for _, doc := range players {
+		fmt.Printf("%+v\n", doc)
+	}
 }

@@ -6,7 +6,7 @@ import (
 	"sync"
 
 	"github.com/gorilla/mux"
-	playerRegistation "github.com/p-society/gCSB/connector/controllers"
+	playerRegistration "github.com/p-society/gCSB/connector/controllers"
 	generaldb "github.com/p-society/gCSB/connector/db"
 )
 
@@ -14,8 +14,9 @@ func main() {
 
 	r := mux.NewRouter()
 
-	r.HandleFunc("/register/player", playerRegistation.PlayerRegistrationController)
-	r.HandleFunc("/verify/player",playerRegistation.VerifyPlayerController)
+	r.HandleFunc("/register/player", playerRegistration.PlayerRegistrationController).Methods("POST")
+	r.HandleFunc("/verify/player", playerRegistration.VerifyPlayerController).Methods("POST")
+	r.HandleFunc("/captain/fetch", playerRegistration.CaptainFetchController).Methods("POST")
 	var wg sync.WaitGroup
 	wg.Add(1)
 	go func() {
