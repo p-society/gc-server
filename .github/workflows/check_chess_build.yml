@@ -1,0 +1,33 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main 
+  pull_request:
+    branches:
+        - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+        
+      - name: Install Bun Runtime
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: 1.0.20
+
+      - name: Install deps 
+        run: |
+            cd src/api/chess
+            bun install
+
+      - name: Build API
+        run: bun index.ts
+
+
