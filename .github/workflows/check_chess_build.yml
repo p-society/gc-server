@@ -28,6 +28,6 @@ jobs:
             bun install
 
       - name: Build API
-        run: bun index.ts
+        run: bun run index.ts
 
 
