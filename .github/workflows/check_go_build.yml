@@ -1,4 +1,4 @@
-name: Build
+name: BUILD_BASKETBALL_API
 
 on:
   push:
