@@ -25,9 +25,10 @@ jobs:
       - name: Install deps 
         run: |
             cd src/api/chess
+            echo pwd
             bun install
 
       - name: Build API
-        run: bun run index.ts
+        run: bun run src/api/chess/index.ts
 
 
