@@ -1,4 +1,4 @@
-name: Build
+name: BUILD_CHESS_API[RUNTIME:BUN]
 
 on:
   push:
