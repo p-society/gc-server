@@ -3,32 +3,14 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"sync"
 
-	"github.com/gorilla/mux"
-	playerRegistration "github.com/p-society/gCSB/connector/controllers"
-	generaldb "github.com/p-society/gCSB/connector/db"
+	database "github.com/p-society/gCSB/connector/db"
+	route "github.com/p-society/gCSB/connector/routes"
 )
 
 func main() {
-
-	r := mux.NewRouter()
-
-	r.HandleFunc("/register/player", playerRegistration.PlayerRegistrationController).Methods("POST")
-	r.HandleFunc("/verify/player", playerRegistration.VerifyPlayerController).Methods("POST")
-	r.HandleFunc("/captain/fetch", playerRegistration.CaptainFetchController).Methods("POST")
-	var wg sync.WaitGroup
-	wg.Add(1)
-	go func() {
-		defer wg.Done()
-		generaldb.Init()
-		err := http.ListenAndServe(":45234", r)
-
-		if err != nil {
-			fmt.Println(err)
-		}
-	}()
-
-	fmt.Println("Connector Live at Port :45234")
-	wg.Wait()
+	fmt.Println("starting server...")
+	database.Init()
+	r := route.Router()
+	http.ListenAndServe(":8080", r)
 }

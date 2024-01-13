@@ -1,4 +1,4 @@
-package generaldb
+package database
 
 import (
 	"context"
@@ -11,7 +11,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-var Collection *mongo.Collection
 var Database *mongo.Database
 
 func Init() {
@@ -22,10 +21,8 @@ func Init() {
 	}
 	fmt.Println("Env Loaded Successfully.")
 
-	// Access environment variables
 	dbLink := os.Getenv("MONGO_URI")
-	const databaseName = "generaldb"
-	const collection1Name = "all-players"
+	const databaseName = "grand-championship"
 
 	clientOptions := options.Client().ApplyURI(dbLink)
 	client, err := mongo.Connect(context.TODO(), clientOptions)
@@ -37,6 +34,4 @@ func Init() {
 	fmt.Println("Connection to Database Successful")
 
 	Database = client.Database(databaseName)
-	Collection = Database.Collection(collection1Name)
-	fmt.Printf("Collection Instance %s is Ready.", collection1Name)
 }
