@@ -2,11 +2,13 @@ package connector_controller
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	database "github.com/p-society/gCSB/connector/db"
 	helper "github.com/p-society/gCSB/connector/helpers"
 	verificationModel "github.com/p-society/gCSB/connector/model"
+	"go.mongodb.org/mongo-driver/bson"
 )
 
 func Verify(w http.ResponseWriter, r *http.Request) {
@@ -26,9 +28,30 @@ func Verify(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_ = helper.SendMail("content","test","b422056@iiit-bh.ac.in")
+	_ = helper.SendMail(message)
 
 	json.NewEncoder(w).Encode(map[string]interface{}{
 		"message": "Please Verify Yourself by submitting the OTP sent in your Email Address",
 	})
+}
+
+func CallbackVerification(w http.ResponseWriter, r *http.Request) {
+
+	var callback_message verificationModel.Callback
+	var retrieved_message verificationModel.VerificationModel
+	_ = json.NewDecoder(r.Body).Decode(&callback_message)
+	VerificationCollection := database.Database.Collection("Verification")
+	filter := bson.M{"email": callback_message.Email}
+	VerificationCollection.FindOne(r.Context(), filter).Decode(&retrieved_message)
+
+	if retrieved_message.OTP == callback_message.OTP {
+		fmt.Println("OK")
+		filter := bson.M{"email": callback_message.Email}
+		update := bson.M{"$set": bson.M{"isVerified": true}}
+		VerificationCollection.FindOneAndUpdate(r.Context(), filter, update)
+		
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"message":"Verification Successful",
+		})
+	}
 }
