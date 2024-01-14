@@ -1,11 +1,10 @@
 name: ADMIN FLUTTER APP BUILD
 
 on:
-  push:
+  pull_request:
     branches:
       - main
-      - dev/app
-
+      
 jobs:
   build:
     runs-on: ubuntu-latest
