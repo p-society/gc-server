@@ -11,7 +11,7 @@ import (
 	verificationModel "github.com/p-society/gCSB/connector/model"
 )
 
-func SendMail(message verificationModel.VerificationModel) string {
+func SendMail(message verificationModel.PlayerProfile) string {
 	url := "http://localhost:6969/send-mail"
 
 	content := `<html>

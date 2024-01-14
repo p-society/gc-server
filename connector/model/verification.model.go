@@ -2,20 +2,7 @@ package verificationModel
 
 import (
 	"time"
-
-	"go.mongodb.org/mongo-driver/bson/primitive"
 )
-
-type VerificationModel struct {
-	ID            primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty"`
-	Name          string             `json:"name,omitempty" bson:"name,omitempty"`
-	Email         string             `json:"email,omitempty" bson:"email,omitempty" unique:"true"`
-	Password      string             `json:"password,omitempty" bson:"password,omitempty"`
-	OTP           int                `json:"otp,omitempty" bson:"otp,omitempty"`
-	OTPExpiration time.Time          `json:"otpexpirationtime,omitempty" bson:"otpexpirationtime,omitempty"`
-	IsVerified    bool               `json:"isVerified" bson:"isVerified"`
-	PlayerId      primitive.ObjectID `json:"playerId" bson:"playerId"`
-}
 
 type Callback struct {
 	OTP   int    `json:"otp,omitempty" bson:"otp,omitempty"`
@@ -39,4 +26,9 @@ type PlayerProfile struct {
 	CreatedAt     time.Time              `json:"createdAt,omitempty" bson:"createdAt,omitempty"`
 	UpdatedAt     time.Time              `json:"updatedAt,omitempty" bson:"updatedAt,omitempty"`
 	Gender        string                 `json:"gender,omitempty" bson:"gender,omitempty"`
+	IsVerified    bool                   `json:"isVerified" bson:"isVerified"`
+	Email         string                 `json:"email,omitempty" bson:"email,omitempty" unique:"true"`
+	Password      string                 `json:"password,omitempty" bson:"password,omitempty"`
+	OTP           int                    `json:"otp,omitempty" bson:"otp,omitempty"`
+	OTPExpiration time.Time              `json:"otpexpirationtime,omitempty" bson:"otpexpirationtime,omitempty"`
 }
