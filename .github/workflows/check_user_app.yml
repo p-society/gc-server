@@ -19,7 +19,10 @@ jobs:
       uses: subosito/flutter-action@v2
       with:
         flutter-version: '2.8.1'  
-        
+    
+    - name: Navigate to Target
+      run: cd apps/admin
+      
     - name: Install dependencies
       run: flutter pub get
 
