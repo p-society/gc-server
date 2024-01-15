@@ -1,6 +1,5 @@
 import 'package:admin/textfield_login.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class LoginPagePlayer extends StatelessWidget {
   const LoginPagePlayer({super.key});
@@ -12,7 +11,18 @@ class LoginPagePlayer extends StatelessWidget {
         body: Padding(
           padding: const EdgeInsets.all(0.0),
           child: Container(
-            color: const Color.fromRGBO(20, 22, 42, 1),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                //aplying gradient
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xFF111114),
+                  Color(0xFF161A3A),
+                  Color(0xFF171D45),
+                ],
+              ),
+            ),
             height: double.infinity,
             child: Padding(
               padding: const EdgeInsets.fromLTRB(40.0, 0, 40, 0.0),
@@ -50,19 +60,23 @@ class LoginPagePlayer extends StatelessWidget {
                       padding: EdgeInsets.fromLTRB(50, 8, 50, 8),
                       child: Image(
                           image: AssetImage(
-                              'assets/images/sports_illustration_gCSB.png')),
+                              'assets/images/sports_illustration_gCSB.png')), //sports image
                     ),
                     const SizedBox(height: 20),
                     const TextfieldLogin(
-                        aboveText: 'E-mail', hintText: 'Enter your E-mail'),
+                        aboveText: 'E-mail',
+                        hintText: 'Enter your E-mail'), //TextField for email
                     const TextfieldLogin(
-                        aboveText: 'Password', hintText: 'Enter your password'),
+                        aboveText: 'Password',
+                        hintText:
+                            'Enter your password'), //TextField for password
                     const SizedBox(
                       height: 20,
                     ),
                     SizedBox(
                       width: 320,
                       child: TextButton(
+                        //Register button
                         onPressed: () {
                           // _onButtonPressed();
                           print('Register button clicked');
@@ -97,6 +111,7 @@ class LoginPagePlayer extends StatelessWidget {
                             ),
                           ),
                           GestureDetector(
+                            //making signup text clickabe
                             onTap: () {
                               print('signup clicked');
                             },

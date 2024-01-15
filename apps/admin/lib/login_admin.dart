@@ -1,14 +1,12 @@
 import 'package:admin/textfield_login.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
-
-  // void _onButtonPressed() {
-  //   // Add your button press logic here
-  //   print('TextButton pressed');
-  // }
+class LoginPageAdmin extends StatelessWidget {
+  const LoginPageAdmin({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,13 +14,21 @@ class LoginPage extends StatelessWidget {
       home: Scaffold(
         body: Expanded(
           child: Container(
-            //width: double.infinity,
-            // width: MediaQuery.of(context).size.width,
-            // height: MediaQuery.of(context).size.height,
-            //  height: double.infinity,
-            color: const Color.fromRGBO(20, 22, 42, 1),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                //aplying gradient
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xFF111114),
+                  Color(0xFF161A3A),
+                  Color(0xFF171D45),
+                ],
+              ),
+            ),
+            height: double.infinity,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(40.0, 0, 40, 57.0),
+              padding: const EdgeInsets.fromLTRB(40.0, 0, 40, 0.0),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,14 +67,19 @@ class LoginPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 20),
                     const TextfieldLogin(
-                        aboveText: 'Name', hintText: 'Enter your Name'),
+                        aboveText: 'Name',
+                        hintText: 'Enter your Name'), //TextField for name
                     const TextfieldLogin(
-                        aboveText: 'E-mail', hintText: 'Enter your E-mail'),
+                        aboveText: 'E-mail',
+                        hintText: 'Enter your E-mail'), //TextField for email
                     const TextfieldLogin(
                         aboveText: 'Phone Number',
-                        hintText: 'Enter your phone number'),
+                        hintText:
+                            'Enter your phone number'), //TextField for phone number
                     const TextfieldLogin(
-                        aboveText: 'Password', hintText: 'Enter your password'),
+                        aboveText: 'Password',
+                        hintText:
+                            'Enter your password'), //TextField for password
                     const SizedBox(
                       height: 20,
                     ),
@@ -94,22 +105,26 @@ class LoginPage extends StatelessWidget {
                     const SizedBox(
                       height: 15,
                     ),
-                    const Center(
-                      child: Text.rich(
-                        TextSpan(
-                          children: [
-                            TextSpan(
-                              text: 'Already have an account? ',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 15,
-                                fontFamily: 'Open Sans',
-                                fontWeight: FontWeight.w500,
-                                height: 0,
-                              ),
+                    Center(
+                      child: Row(
+                        children: [
+                          const Text(
+                            'Already have an account? ',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15,
+                              fontFamily: 'Open Sans',
+                              fontWeight: FontWeight.w500,
+                              height: 0,
                             ),
-                            TextSpan(
-                              text: 'Sign Up',
+                          ),
+                          GestureDetector(
+                            //making signup text clickable
+                            onTap: () {
+                              print('signup clicked');
+                            },
+                            child: const Text(
+                              'Sign Up',
                               style: TextStyle(
                                 color: Color(0xFFC01A60),
                                 fontSize: 15,
@@ -118,14 +133,10 @@ class LoginPage extends StatelessWidget {
                                 height: 0,
                               ),
                             ),
-                          ],
-                        ),
-                        textAlign: TextAlign.center,
+                          )
+                        ],
                       ),
                     ),
-                    // const SizedBox(
-                    //   height: 56,
-                    // )
                   ],
                 ),
               ),
