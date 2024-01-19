@@ -1,8 +1,27 @@
+import 'package:admin/login_admin.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 
-class OtpPage extends StatelessWidget {
+class OtpPage extends StatefulWidget {
   const OtpPage({super.key});
+
+  @override
+  State<OtpPage> createState() => _OtpPageState();
+}
+
+class _OtpPageState extends State<OtpPage> {
+  late TextEditingController otpController;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    otpController = TextEditingController();
+  }
+
+  void navController() {
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => LoginPageAdmin()));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,13 +100,20 @@ class OtpPage extends StatelessWidget {
                 defaultPinTheme: defaultPinTheme,
                 focusedPinTheme: focusedPinTheme,
                 submittedPinTheme: submittedPinTheme,
+                controller: otpController,
                 validator: (s) {
-                  return s == '2222' ? null : 'OTP is incorrect';
+                  if (s == '2222') {
+                    navController();
+                    return '';
+                  } else {
+                    otpController.text = '';
+                    return 'OTP is incorrect';
+                  }
                 },
                 closeKeyboardWhenCompleted: true,
                 pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
                 showCursor: true,
-                onCompleted: (pin) => print(pin),
+                onCompleted: (pin) => navController,
               ),
               const SizedBox(
                 height: 30,

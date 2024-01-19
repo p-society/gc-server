@@ -26,7 +26,7 @@ class LoginPagePlayer extends StatelessWidget {
             ),
             child: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 70,
                 ),
                 Expanded(
@@ -64,11 +64,11 @@ class LoginPagePlayer extends StatelessWidget {
                             const SizedBox(
                               height: 18,
                             ),
-                            const Padding(
-                              padding: EdgeInsets.fromLTRB(50, 8, 50, 8),
+                            const AspectRatio(
+                              aspectRatio: 16 / 9,
                               child: Image(
                                   image: AssetImage(
-                                      'assets/images/sports_illustration_gCSB.png')), //sports image
+                                      'assets/images/sports_illustration_gCSB.png')),
                             ),
                             const SizedBox(height: 20),
                             const TextfieldLogin(
@@ -144,7 +144,7 @@ class LoginPagePlayer extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Positioned(
