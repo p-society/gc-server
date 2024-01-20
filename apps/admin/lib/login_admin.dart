@@ -1,8 +1,5 @@
 import 'package:admin/textfield_login.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 class LoginPageAdmin extends StatelessWidget {
@@ -59,8 +56,8 @@ class LoginPageAdmin extends StatelessWidget {
                     const SizedBox(
                       height: 18,
                     ),
-                    const Padding(
-                      padding: EdgeInsets.fromLTRB(50, 8, 50, 8),
+                    AspectRatio(
+                      aspectRatio: 16 / 9,
                       child: Image(
                           image: AssetImage(
                               'assets/images/sports_illustration_gCSB.png')),
