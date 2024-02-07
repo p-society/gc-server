@@ -1,4 +1,4 @@
-package verificationModel
+package model
 
 import (
 	"time"
@@ -31,4 +31,10 @@ type PlayerProfile struct {
 	Password      string                 `json:"password,omitempty" bson:"password,omitempty"`
 	OTP           int                    `json:"otp,omitempty" bson:"otp,omitempty"`
 	OTPExpiration time.Time              `json:"otpexpirationtime,omitempty" bson:"otpexpirationtime,omitempty"`
+}
+
+type Admin struct {
+	ID    string `json:"_id,omitempty" bson:"_id,omitempty"`
+	Name  string `json:"name,omitempty" bson:"name,omitempty"`
+	Sport string `json:"sport,omitempty" bson:"sport,omitempty"`
 }

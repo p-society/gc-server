@@ -8,12 +8,12 @@ import (
 
 	database "github.com/p-society/gCSB/connector/db"
 	helper "github.com/p-society/gCSB/connector/helpers"
-	verificationModel "github.com/p-society/gCSB/connector/model"
+	model "github.com/p-society/gCSB/connector/model"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
 func Verify(w http.ResponseWriter, r *http.Request) {
-	var message verificationModel.PlayerProfile
+	var message model.PlayerProfile
 	json.NewDecoder(r.Body).Decode(&message)
 	message.OTP, message.OTPExpiration = helper.GenerateOTP()
 	message.Password = helper.Secure_Passwords(message.Password)
@@ -36,8 +36,8 @@ func Verify(w http.ResponseWriter, r *http.Request) {
 
 func CallbackVerification(w http.ResponseWriter, r *http.Request) {
 
-	var callback_message verificationModel.Callback
-	var retrieved_message verificationModel.PlayerProfile
+	var callback_message model.Callback
+	var retrieved_message model.PlayerProfile
 	_ = json.NewDecoder(r.Body).Decode(&callback_message)
 	PlayerCollection := database.Database.Collection("Player")
 	filter := bson.M{"email": callback_message.Email}
@@ -58,8 +58,8 @@ func CallbackVerification(w http.ResponseWriter, r *http.Request) {
 }
 
 func Login(w http.ResponseWriter, r *http.Request) {
-	var Logindata verificationModel.Login
-	var retrieved_message verificationModel.PlayerProfile
+	var Logindata model.Login
+	var retrieved_message model.PlayerProfile
 
 	json.NewDecoder(r.Body).Decode(&Logindata)
 	PlayerCollection := database.Database.Collection("Player")
@@ -77,7 +77,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 func PlayerRegistration(w http.ResponseWriter, r *http.Request) {
 
-	var playerData verificationModel.PlayerProfile
+	var playerData model.PlayerProfile
 	json.NewDecoder(r.Body).Decode(&playerData)
 
 	PlayerCollection := database.Database.Collection("Player")
@@ -106,5 +106,5 @@ func PlayerRegistration(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println(data)
 
-	json.NewEncoder(w).Encode("DONE")
+	json.NewEncoder(w).Encode(data)
 }
