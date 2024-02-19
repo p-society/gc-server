@@ -6,7 +6,7 @@
 
 
 <div align="center">
-gCScore Broadcasting System seamlessly bridges web and app platforms, improving the experience of our annual sports championship. Stay updated in real-time and engage with the thrill of the game like never before.
+Grand Championship Broadcasting System seamlessly bridges web and app platforms, improving the experience of our annual sports championship. Stay updated in real-time and engage with the thrill of the game like never before.
 
 <h3>P-Society Handles</h3>
 <h3 align="center">
@@ -22,16 +22,16 @@ gCScore Broadcasting System seamlessly bridges web and app platforms, improving 
 ----------------------------------------
 <div align="center">
   
-**gCSB** is a live score broadcasting application designed for both web and app platforms. The application is built using Golang, MongoDB, SSE (Server-Sent Events), and Redis. The web version is being developed using Next.js, while the app version is built using Flutter.
+**GCSB / Grand Championship Broadcasting Service** is a live score broadcasting application for both web and app platforms. The application is built using Golang,Kafka,MongoDB, SSE (Server-Sent Events), and Redis. The web version is being developed using Next.js, while the app version is built using Flutter.
 </div>
 <div align="center">
 <br/>
-<img src='https://skillicons.dev/icons?i=go,nodejs,dart,mongodb,redis,flutter,nextjs' ></img>
+<img src='https://skillicons.dev/icons?i=go,kafka,nodejs,dart,mongodb,redis,flutter,nextjs' ></img>
 
 </div>
 <br/>
 
-gCBS offers two primary benefits to its users. 
+GCSB offers two primary benefits to its users. 
 
 - Real-time score updates for various sports events.
 - Seamless integration with web and app platforms.
