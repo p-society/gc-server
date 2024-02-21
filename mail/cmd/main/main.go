@@ -8,8 +8,8 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
-	mailConfig "github.com/p-society/mail/internal"
-	models "github.com/p-society/mail/internal/models"
+	mailConfig "github.com/p-society/gc-server/mail/internal"
+	models "github.com/p-society/gc-server/mail/internal/models"
 )
 
 func main() {
@@ -25,7 +25,7 @@ func main() {
 	}
 
 	r.HandleFunc("/v0/mails", MailRequestHandler).Methods("POST")
-	fmt.Println("Server live at http://127.0.0.1"+ADDR)
+	fmt.Println("Server live at http://127.0.0.1" + ADDR)
 	http.ListenAndServe(ADDR, r)
 }
 
