@@ -13,7 +13,9 @@ import (
 )
 
 func main() {
-
+	var (
+		ADDR string = ":6969"
+	)
 	r := mux.NewRouter()
 	err := godotenv.Load()
 
@@ -22,9 +24,9 @@ func main() {
 		return
 	}
 
-	r.HandleFunc("/send-mail", MailRequestHandler).Methods("POST")
-	fmt.Println("Server live at :6969")
-	http.ListenAndServe(":6969", r)
+	r.HandleFunc("/v0/mails", MailRequestHandler).Methods("POST")
+	fmt.Println("Server live at http://127.0.0.1"+ADDR)
+	http.ListenAndServe(ADDR, r)
 }
 
 func MailRequestHandler(w http.ResponseWriter, r *http.Request) {

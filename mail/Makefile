@@ -1,13 +1,29 @@
-build-and-run:
-	make install_deps
-	make build
-	make run 
+# Define variables
+GO_BUILD_FLAGS = -o bin/main
+
+# Define targets
+
+.PHONY: install_deps build run clean
 
 install_deps:
-	go mod download
+	@echo "Downloading dependencies..."
+	@go mod download
 
-build:
-	go build -o bin/main cmd/main/main.go
+build: install_deps
+	@echo "Building server..."
+	@go build $(GO_BUILD_FLAGS) cmd/main/main.go
 
-run:
-	go run ./cmd/main
+run: build
+	@echo "Running mail server"
+	@./bin/main
+
+clean:
+	@echo "Cleaning up...."
+	@rm -rf bin/main
+
+# Help target
+.PHONY: help
+
+help:
+	@echo "Available targets:"
+	@grep -E '^.+:' Makefile
