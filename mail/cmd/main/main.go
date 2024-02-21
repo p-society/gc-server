@@ -30,15 +30,15 @@ func main() {
 }
 
 func MailRequestHandler(w http.ResponseWriter, r *http.Request) {
-	var paramInstance models.MailingParams
+		var paramInstance models.MailingParams
 
-	senderName := os.Getenv("EMAIL_SENDER_NAME")
-	senderAddress := os.Getenv("EMAIL_SENDER_ADDRESS")
-	senderPassword := os.Getenv("EMAIL_SENDER_PASSWORD")
+		senderName := os.Getenv("EMAIL_SENDER_NAME")
+		senderAddress := os.Getenv("EMAIL_SENDER_ADDRESS")
+		senderPassword := os.Getenv("EMAIL_SENDER_PASSWORD")
 
-	sender := mailConfig.NewGmailSender(senderName, senderAddress, senderPassword)
+		sender := mailConfig.NewGmailSender(senderName, senderAddress, senderPassword)
 
-	err := json.NewDecoder(r.Body).Decode(&paramInstance)
+		err := json.NewDecoder(r.Body).Decode(&paramInstance)
 
 	if err != nil {
 		jsonPayload := `{"err": "` + err.Error() + `"}`

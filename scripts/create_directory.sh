@@ -2,16 +2,12 @@
 
 # Set directory and repository name
 directory="$1"
-repo_name="$2"
 
 # Validate arguments
-if [[ -z "$directory" || -z "$repo_name" ]]; then
-  echo "Error: Please provide both directory and repository name."
+if [[ -z "$directory" ]]; then
+  echo "Error: Please provide directory."
   exit 1
 fi
-
-# Initialize Go module
-go mod init "$repo_name"
 
 # Change directory
 cd "$directory"
