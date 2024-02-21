@@ -21,7 +21,7 @@ func SendMail(subject string, content string, to []string) error {
 		To:      to,
 	}
 
-	err :=  sender.SendEmail(paramInstance.Subject, paramInstance.Content, paramInstance.To, nil, nil, nil)
+	err := sender.SendEmail(paramInstance.Subject, paramInstance.Content, paramInstance.To, nil, nil, nil)
 
 	return err
 }
