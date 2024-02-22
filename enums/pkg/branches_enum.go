@@ -8,9 +8,10 @@ const (
 	EEE = "EEE"
 )
 
-
 var Branches = []string{
-	PLAYER,
-	ADMIN,
-	PLATFORM_SUPER_ADMIN,
+	CSE,
+	IT,
+	CE,
+	ETC,
+	EEE,
 }
