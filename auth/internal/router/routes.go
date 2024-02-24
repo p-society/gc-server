@@ -12,4 +12,5 @@ func AuthRouter() *mux.Router {
 	r.HandleFunc("/v0/auth/callback/signup", handlers.CallbackVerification).Methods("post")
 	r.HandleFunc("/v0/auth/login", handlers.Login).Methods("POST")
 	return r
+
 }

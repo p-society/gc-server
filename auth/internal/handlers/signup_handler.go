@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt"
+	"github.com/p-society/gc-server/auth/internal"
 	"github.com/p-society/gc-server/auth/internal/utils"
 	"github.com/p-society/gc-server/auth/pkg/security"
 	model "github.com/p-society/gc-server/schemas/pkg/models"
@@ -17,15 +18,15 @@ func SignUpHandler(w http.ResponseWriter, r *http.Request) {
 	var p model.Player
 
 	w.Header().Set("Content-Type", "application/json")
+
 	err := json.NewDecoder(r.Body).Decode(&p)
 	defer r.Body.Close()
-
 	if err != nil {
 		json.NewEncoder(w).Encode(err)
 		return
 	}
-	err = p.Valid()
 
+	err = p.Valid()
 	if err != nil {
 		json.NewEncoder(w).Encode(map[string]interface{}{
 			"error": err.Error(),
@@ -33,7 +34,6 @@ func SignUpHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Println("p.Email @signup", p.Email)
 	err = utils.IsUniqueInDB(p.Email)
 	if err != nil {
 		json.NewEncoder(w).Encode(map[string]interface{}{
@@ -42,16 +42,21 @@ func SignUpHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// TODO:Send OTP Mail
-
 	p.StandardClaims = jwt.StandardClaims{
 		IssuedAt:  time.Now().Unix(),
 		ExpiresAt: time.Now().Add(5 * time.Minute).Unix(),
 	}
 	// TODO : Check password to be
+
 	p.OTP = utils.GenerateOTP(6)
 	fmt.Println(p.OTP)
+
+	if err := internal.SendEmail(&p); err != nil {
+		json.NewEncoder(w).Encode(err.Error())
+	}
+
 	hashedPass, err := bcrypt.GenerateFromPassword([]byte(p.Password), 10)
+
 	if err != nil {
 		panic(err)
 	}
