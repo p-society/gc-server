@@ -9,6 +9,13 @@ install_deps:
 	@echo "Downloading dependencies..."
 	@go mod download
 
+build: install_deps
+	@echo "Building server..."
+	@go build $(GO_BUILD_FLAGS) cmd/main/main.go
+
+run: build
+	@./bin/main
+
 clean:
 	@echo "Cleaning up...."
 	@rm -rf bin/main

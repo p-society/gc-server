@@ -8,6 +8,6 @@ import (
 )
 
 func main() {
-	fmt.Println("Running...")
+	fmt.Println("Server Live @ http://127.0.0.1:2609")
 	http.ListenAndServe(":2609", router.AuthRouter())
 }
