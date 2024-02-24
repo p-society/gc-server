@@ -3,6 +3,7 @@ package model
 import (
 	"fmt"
 
+	"github.com/golang-jwt/jwt"
 	enum "github.com/p-society/gc-server/enums/pkg"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
@@ -11,12 +12,26 @@ type Player struct {
 	ID        primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty"`
 	FirstName string             `json:"firstName" bson:"firstName"`
 	LastName  string             `json:"lastName" bson:"lastName"`
-	MailId    string             `json:"mailId" bson:"mailId"`
+	Email     string             `json:"email" bson:"email"`
 	Role      string             `json:"role" bson:"role"`
 	Branch    string             `json:"branch" bson:"branch"`
 	Year      string             `json:"year" bson:"year"`
 	ContactNo string             `json:"contactNo" bson:"contactNo"`
-	Social    []string           `json:"socials" bson:"socials"`
+	Social    []string           `json:"socials,omitempty" bson:"socials,omitempty"`
+}
+
+type ValidationSchema struct {
+	ID        primitive.ObjectID `json:"_id,omitempty"`
+	FirstName string             `json:"firstName"`
+	LastName  string             `json:"lastName"`
+	Email     string             `json:"email"`
+	Role      string             `json:"role"`
+	Branch    string             `json:"branch"`
+	Year      string             `json:"year"`
+	ContactNo string             `json:"contactNo"`
+	Social    []string           `json:"socials,omitempty"`
+	OTP       int                `json:"otp"`
+	jwt.StandardClaims
 }
 
 func ValidateRole(p *Player) error {

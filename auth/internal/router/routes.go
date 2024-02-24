@@ -9,6 +9,6 @@ func AuthRouter() *mux.Router {
 	r := mux.NewRouter()
 
 	r.HandleFunc("/v0/auth/signup", handlers.SignUpHandler).Methods("post")
-
+	r.HandleFunc("/v0/auth/callback/signup", handlers.CallbackVerification).Methods("post")
 	return r
 }
