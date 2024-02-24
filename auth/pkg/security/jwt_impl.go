@@ -5,15 +5,14 @@ import (
 	model "github.com/p-society/gc-server/schemas/pkg/models"
 )
 
-func NewAccessToken(claims model.ValidationSchema) (string, error) {
+func NewAccessToken(claims model.Player) (string, error) {
 	accessToken := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-
 	return accessToken.SignedString([]byte("saswat,tu23kranklekeiiitkyunaaya"))
 }
 
-func ParseAccessToken(accessToken string) *model.ValidationSchema {
-	parsedAccessToken, _ := jwt.ParseWithClaims(accessToken, &model.ValidationSchema{}, func(token *jwt.Token) (interface{}, error) {
+func ParseAccessToken(accessToken string) *model.Player {
+	parsedAccessToken, _ := jwt.ParseWithClaims(accessToken, &model.Player{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte([]byte("saswat,tu23kranklekeiiitkyunaaya")), nil
 	})
-	return parsedAccessToken.Claims.(*model.ValidationSchema)
+	return parsedAccessToken.Claims.(*model.Player)
 }
