@@ -10,6 +10,7 @@ import (
 	"github.com/p-society/gc-server/auth/internal"
 	"github.com/p-society/gc-server/auth/internal/utils"
 	"github.com/p-society/gc-server/auth/pkg/security"
+	enum "github.com/p-society/gc-server/enums/pkg"
 	model "github.com/p-society/gc-server/schemas/pkg/models"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -25,6 +26,8 @@ func SignUpHandler(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(err)
 		return
 	}
+	// NOTE: To create PSA , Comment this as of now.
+	p.Role = enum.PLAYER
 
 	err = p.Valid()
 	if err != nil {

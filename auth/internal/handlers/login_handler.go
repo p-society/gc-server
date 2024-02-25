@@ -63,5 +63,6 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 	json.NewEncoder(w).Encode(map[string]interface{}{
 		"accessToken": token,
+		"user":        p,
 	})
 }

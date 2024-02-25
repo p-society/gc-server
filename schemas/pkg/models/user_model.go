@@ -2,6 +2,7 @@ package model
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/golang-jwt/jwt"
 	enum "github.com/p-society/gc-server/enums/pkg"
@@ -19,10 +20,13 @@ type Player struct {
 	Year      string             `json:"year" bson:"year"`
 	ContactNo string             `json:"contactNo" bson:"contactNo"`
 	Social    []string           `json:"socials,omitempty" bson:"socials,omitempty"`
+	IsDeleted bool               `json:"isDeleted" bson:"isDeleted"`
+	DeletedBy primitive.ObjectID `json:"deletedBy" bson:"deleteBy"`
+	DeletedAt primitive.ObjectID `json:"deletedAt" bson:"deletedAt"`
+	CreatedAt time.Time          `json:"createdAt" bson:"createdAt"`
 	OTP       int                `json:"otp"`
 	jwt.StandardClaims
 }
-
 
 func ValidateRole(p *Player) error {
 
