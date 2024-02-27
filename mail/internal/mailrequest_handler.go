@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"os"
 
 	"github.com/p-society/gc-server/mail/internal/models"
 )
@@ -12,9 +11,9 @@ import (
 func MailRequestHandler(w http.ResponseWriter, r *http.Request) {
 	var paramInstance models.MailingParams
 
-	senderName := os.Getenv("EMAIL_SENDER_NAME")
-	senderAddress := os.Getenv("EMAIL_SENDER_ADDRESS")
-	senderPassword := os.Getenv("EMAIL_SENDER_PASSWORD")
+	senderName := "Programming Society IIIT-Bh"
+	senderAddress := "sampagon738@gmail.com"
+	senderPassword := "jppxywoiaflvneue"
 
 	sender := NewGmailSender(senderName, senderAddress, senderPassword)
 
