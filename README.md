@@ -1,6 +1,6 @@
 <h1 align="center">
 <!-- 	<img width="300" src="https://github.com/gCBS/gCBS_native/blob/stable/assets/gCBSColorPurp@3x.png?raw=true" alt="gCBS"> -->
-      gCSB : GC Score Broadcasting Service
+      GC Score Broadcasting Service
 	<br>
 </h1>
 
@@ -12,9 +12,9 @@ Grand Championship Broadcasting System seamlessly bridges web and app platforms,
 <h3 align="center">
 	<a href="https://dev-psoc.netlify.app/">Website</a>
 	<span> | </span>
-	<a href="https://discord.gg/5Tj7DEED">Community Discord</a>
+	<a href="https://discord.gg/UhmKJGMnan">Community Discord</a>
 	<span> | </span>
-	<a href="https://github.com/gCBS/gCBS/projects?type=classic">Contribute</a>
+	<a href="https://github.com/p-society/gc-server/blob/main/docs/CONTRIBUTING.md">Contribute</a>
 </h3>
 
 </div>
