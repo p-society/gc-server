@@ -23,7 +23,7 @@ func Router() *mux.Router {
 	}).Methods("DELETE")
 
 	r.Handle("/v0/players", &security.RoleGuard{
-		AllowedRoles: []string{enum.ADMIN, enum.PLATFORM_SUPER_ADMIN},
+		AllowedRoles: []string{enum.ADMIN, enum.PLATFORM_SUPER_ADMIN, enum.PLAYER},
 		Handler:      http.HandlerFunc((handlers.GetHandler)),
 	}).Methods("GET")
 	return r
