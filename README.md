@@ -26,7 +26,7 @@ Grand Championship Broadcasting System seamlessly bridges web and app platforms,
 </div>
 <div align="center">
 <br/>
-<img src='https://skillicons.dev/icons?i=go,kafka,nodejs,dart,mongodb,redis,flutter,nextjs' ></img>
+<img src='https://skillicons.dev/icons?i=go,kafka,nodejs,mongodb,redis' ></img>
 
 </div>
 <br/>
