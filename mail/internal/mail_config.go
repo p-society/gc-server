@@ -8,8 +8,8 @@ import (
 )
 
 const (
-	smtpAuthAddress   string = "smtp.gmail.com"
-	smtpServerAddress        = "smtp.gmail.com:587"
+	smtpAuthAddress   = "smtp.gmail.com"
+	smtpServerAddress = "smtp.gmail.com:587"
 )
 
 type EmailSender interface {

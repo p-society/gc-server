@@ -1,4 +1,4 @@
-package utils
+package security
 
 import (
 	"fmt"
@@ -9,7 +9,7 @@ import (
 func ExtractTokenFromHeader(r *http.Request) (string, error) {
 
 	authHeader := r.Header.Get("Authorization")
-	if authHeader == "" && strings.Split(authHeader, " ")[0] == "Bearer" {
+	if authHeader == "" || len(authHeader) == 2 {
 		return "", fmt.Errorf("token not found")
 	}
 

@@ -10,22 +10,22 @@ import (
 )
 
 type Player struct {
-	ID        primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty"`
-	FirstName string             `json:"firstName" bson:"firstName"`
-	LastName  string             `json:"lastName" bson:"lastName"`
-	Email     string             `json:"email" bson:"email"`
-	Password  string             `json:"password" bson:"password"`
-	Role      string             `json:"role" bson:"role"`
-	Branch    string             `json:"branch" bson:"branch"`
-	Year      string             `json:"year" bson:"year"`
-	ContactNo string             `json:"contactNo" bson:"contactNo"`
-	Social    []string           `json:"socials,omitempty" bson:"socials,omitempty"`
-	IsDeleted bool               `json:"isDeleted" bson:"isDeleted"`
-	DeletedBy primitive.ObjectID `json:"deletedBy" bson:"deleteBy"`
-	DeletedAt primitive.ObjectID `json:"deletedAt" bson:"deletedAt"`
-	CreatedAt time.Time          `json:"createdAt" bson:"createdAt"`
-	OTP       int                `json:"otp"`
-	jwt.StandardClaims
+	ID                 primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty"`
+	FirstName          string             `json:"firstName" bson:"firstName"`
+	LastName           string             `json:"lastName" bson:"lastName"`
+	Email              string             `json:"email" bson:"email"`
+	Password           string             `json:"password" bson:"password"`
+	Role               string             `json:"role" bson:"role"`
+	Branch             string             `json:"branch" bson:"branch"`
+	Year               string             `json:"year" bson:"year"`
+	ContactNo          string             `json:"contactNo" bson:"contactNo"`
+	Social             []string           `json:"socials,omitempty" bson:"socials,omitempty"`
+	IsDeleted          bool               `json:"isDeleted,omitempty" bson:"isDeleted,omitempty"`
+	DeletedBy          primitive.ObjectID `json:"deletedBy,omitempty" bson:"deleteBy,omitempty"`
+	DeletedAt          primitive.ObjectID `json:"deletedAt,omitempty" bson:"deletedAt,omitempty"`
+	CreatedAt          time.Time          `json:"createdAt" bson:"createdAt"`
+	OTP                int                `json:"otp,omitempty"`
+	jwt.StandardClaims `json:"claims,omitempty" bson:"claims,omitempty"`
 }
 
 func ValidateRole(p *Player) error {

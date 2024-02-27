@@ -1,9 +1,8 @@
 package security
 
 import (
+	"encoding/json"
 	"net/http"
-
-	"github.com/p-society/gc-server/auth/internal/utils"
 )
 
 type RoleGuard struct {
@@ -17,10 +16,13 @@ func (rg *RoleGuard) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		err   error
 	)
 
-	token, err = utils.ExtractTokenFromHeader(r)
-	if err != nil {
+	token, err = ExtractTokenFromHeader(r)
+	if err != nil || token == "" {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusUnauthorized)
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"error": err.Error(),
+		})
 		return
 	}
 
@@ -29,6 +31,9 @@ func (rg *RoleGuard) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if !contains(rg.AllowedRoles, p.Role) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusForbidden)
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"error": "you are not authorized to access this resource",
+		})
 		return
 	}
 

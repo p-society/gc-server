@@ -1,4 +1,4 @@
-package internal
+package utils
 
 func RenderEngine(OTP int) string {
 	return `

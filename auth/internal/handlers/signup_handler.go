@@ -7,12 +7,11 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt"
-	"github.com/p-society/gc-server/auth/internal"
 	"github.com/p-society/gc-server/auth/internal/utils"
 	"github.com/p-society/gc-server/auth/pkg/security"
 	enum "github.com/p-society/gc-server/enums/pkg"
+	errors "github.com/p-society/gc-server/errors/pkg"
 	model "github.com/p-society/gc-server/schemas/pkg/models"
-	"golang.org/x/crypto/bcrypt"
 )
 
 func SignUpHandler(w http.ResponseWriter, r *http.Request) {
@@ -23,7 +22,7 @@ func SignUpHandler(w http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(&p)
 	defer r.Body.Close()
 	if err != nil {
-		json.NewEncoder(w).Encode(err)
+		errors.SendErrorJson(w, err)
 		return
 	}
 	// NOTE: To create PSA , Comment this as of now.
@@ -31,19 +30,15 @@ func SignUpHandler(w http.ResponseWriter, r *http.Request) {
 
 	err = p.Valid()
 	if err != nil {
-		json.NewEncoder(w).Encode(map[string]interface{}{
-			"error": err.Error(),
-		})
+		errors.SendErrorJson(w, err)
 		return
 	}
 
-	err = utils.IsUniqueInDB(p.Email)
-	if err != nil {
-		json.NewEncoder(w).Encode(map[string]interface{}{
-			"error": err.Error(),
-		})
-		return
-	}
+	// err = utils.IsUniqueInDB(p.Email)
+	// if err != nil {
+	// 	errors.SendErrorJson(w, err)
+	// 	return
+	// }
 
 	p.StandardClaims = jwt.StandardClaims{
 		IssuedAt:  time.Now().Unix(),
@@ -54,13 +49,16 @@ func SignUpHandler(w http.ResponseWriter, r *http.Request) {
 	p.OTP = utils.GenerateOTP(6)
 	fmt.Println(p.OTP)
 
-	if err := internal.SendEmail(&p); err != nil {
-		json.NewEncoder(w).Encode(err.Error())
+	if err := utils.SendEmail(&p); err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		errors.SendErrorJson(w, fmt.Errorf("internal server error"))
+		return
 	}
 
-	hashedPass, err := bcrypt.GenerateFromPassword([]byte(p.Password), 10)
+	hashedPass, err := security.HashPassword(p.Password)
 
 	if err != nil {
+		errors.SendErrorJson(w, err)
 		panic(err)
 	}
 
@@ -68,9 +66,7 @@ func SignUpHandler(w http.ResponseWriter, r *http.Request) {
 
 	token, err := security.NewAccessToken(p)
 	if err != nil {
-		json.NewEncoder(w).Encode(map[string]interface{}{
-			"error": err.Error(),
-		})
+		errors.SendErrorJson(w, err)
 		return
 	}
 
