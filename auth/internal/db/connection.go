@@ -3,9 +3,7 @@ package db
 import (
 	"context"
 	"fmt"
-	"os"
 
-	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -21,18 +19,17 @@ var (
 	Gcsb             *mongo.Database
 )
 
-func init() {
-	err := godotenv.Load()
+func InitAuth() {
+	// err := godotenv.Load()
 
-	if err != nil {
-		fmt.Println("Error loading .env")
-		return
-	}
+	// if err != nil {
+	// 	fmt.Println("Error loading .env")
+	// 	return
+	// }
 
-	DB_URI := os.Getenv("DB")
+	// DB_URI := os.Getenv("DB")
 
-	clientOptions := options.Client().ApplyURI(DB_URI)
-
+	clientOptions := options.Client().ApplyURI(`mongodb+srv://soubhik:soubhik@sports.vj9j4tb.mongodb.net/?retryWrites=true&w=majority&appName=Sports`)
 
 	client, err := mongo.Connect(context.TODO(), clientOptions)
 
@@ -50,7 +47,8 @@ func init() {
 			Options: options.Index().SetUnique(true),
 		},
 	); err != nil {
-		fmt.Println("Failed to Create index")
+		fmt.Println("Failed to Create index ", err.Error())
+		return
 	}
 
 	fmt.Println("PlayerDB/Player Collection is Ready.")

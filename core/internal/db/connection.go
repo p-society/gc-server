@@ -3,7 +3,6 @@ package db
 import (
 	"context"
 	"fmt"
-	"os"
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -27,9 +26,9 @@ func InitCore() {
 	// 	return
 	// }
 
-	DB_URI := os.Getenv("DB")
+	// DB_URI := os.Getenv("DB")
 
-	clientOptions := options.Client().ApplyURI(DB_URI)
+	clientOptions := options.Client().ApplyURI(`mongodb+srv://soubhik:soubhik@sports.vj9j4tb.mongodb.net/?retryWrites=true&w=majority&appName=Sports`)
 
 	client, err := mongo.Connect(context.TODO(), clientOptions)
 
