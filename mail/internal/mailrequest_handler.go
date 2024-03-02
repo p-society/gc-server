@@ -42,5 +42,7 @@ func MailRequestHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Println("Sucess")
-	w.Write([]byte("E-mail sent Successfully."))
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"message":"mail sent successfully",
+	})
 }
