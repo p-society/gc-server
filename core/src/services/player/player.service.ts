@@ -1,14 +1,14 @@
-// Initializes the `players` service on path `/players`
+// Initializes the `player` service on path `/player`
 import { ServiceAddons } from '@feathersjs/feathers';
 import { Application } from '../../declarations';
-import { Players } from './players.class';
-import createModel from '../../models/players.model';
-import hooks from './players.hooks';
+import { Player } from './player.class';
+import createModel from '../../models/player.model';
+import hooks from './player.hooks';
 
 // Add this service to the service type index
 declare module '../../declarations' {
   interface ServiceTypes {
-    'players': Players & ServiceAddons<any>;
+    'player': Player & ServiceAddons<any>;
   }
 }
 
@@ -19,10 +19,10 @@ export default function (app: Application): void {
   };
 
   // Initialize our service with any options it requires
-  app.use('/players', new Players(options, app));
+  app.use('/player', new Player(options, app));
 
   // Get our initialized service so that we can register hooks
-  const service = app.service('players');
+  const service = app.service('player');
 
   service.hooks(hooks);
 }

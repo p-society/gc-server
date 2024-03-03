@@ -1,6 +1,6 @@
 # core
 
-> core services for gc-server
+> core service for gc server
 
 ## About
 
