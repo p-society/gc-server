@@ -1,0 +1,97 @@
+## Player (CRUD by PSA, Player only)
+
+- **_id** (ObjectId)
+- **firstName** (String)
+- **lastName** (String)
+- **role** (String)
+- **sport** (String)
+- **socials** (Object)
+- **branch** (String)
+- **year** (Number)
+- **deleted** (Boolean)
+- **deletedBy** (ObjectId)
+- **deletedAt** (Date)
+- **createdAt** (Date)
+- **updatedAt** (Date)
+- **__v** (Number)
+
+## Squad (CRUD by PSA only)
+
+- **_id** (ObjectId)
+- **name** (String)
+- **branch** (String)
+- **sport** (String)
+- **createdBy** (ObjectId)
+- **createdAt** (Date)
+- **deleted** (Boolean)
+- **deletedBy** (ObjectId)
+- **updatedAt** (Date)
+- **socials** (Object)
+- **description** (String, optional)
+
+## Squad Player (CRUD by PSA only)
+
+- **_id** (ObjectId)
+- **player _id** (ObjectId)
+- **squad _id** (ObjectId)
+- **createdAt** (Date)
+- **createdBy** (ObjectId)
+- **updatedAt** (Date)
+- **deleted** (Boolean)
+- **deletedBy** (ObjectId)
+- **jerseyNumber** (Number, optional)
+
+## Team (CRUD by Admin + PSA)
+
+- **_id** (ObjectId)
+- **squad _id** (ObjectId)
+- **sport** (String)
+- **branch** (String)
+- **createdAt** (Date)
+- **updatedAt** (Date)
+- **deleted** (Boolean)
+- **deleteBy** (ObjectId)
+- **updatedAt** (Date)
+- **description** (String, optional)
+
+## Team Player (CRUD by PSA + Admin (Bulk insertion allowed))
+
+- **_id** (ObjectId)
+- **team _id** (ObjectId)
+- **player _id** (ObjectId)
+- **squad _id** (ObjectId)
+- **createdBy** (ObjectId)
+- **createdAt** (Date)
+- **updatedAt** (Date)
+- **deleted** (Boolean)
+- **deletedBy** (ObjectId)
+- **position** (String, optional)
+
+## Admins (An admin can only be created, deleted, read by PSA, update delete PSA + Admin)
+
+- **_id** (ObjectId)
+- **role** (String)
+- **isPlayer** (Boolean)
+- **player _id** (ObjectId)
+
+## PSA (A PSA can create, update other PSA)
+
+- **_id** (ObjectId)
+- **isPlayer** (Boolean)
+- **player _id** (ObjectId)
+- **email** (String)
+- **password** (String)
+
+## Match (Created, Deleted by PSA only, Can be updated by Admin + PSA only)
+
+- **team1 _id** (ObjectId)
+- **team2 _id** (ObjectId)
+- **squad1 _id** (ObjectId)
+- **squad2 _id** (ObjectId)
+- **assignedAdmin** (ObjectId)
+- **venue** (String)
+- **date** (Date)
+- **status** (String, e.g., scheduled, ongoing, finished)
+
+## Events
+- TBD
