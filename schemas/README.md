@@ -3,6 +3,7 @@
 - **_id** (ObjectId)
 - **firstName** (String)
 - **lastName** (String)
+- **password** (String)
 - **role** (String)
 - **sport** (String)
 - **socials** (Object)
