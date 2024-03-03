@@ -8,8 +8,8 @@
   },
   "authentication": {
     "entity": "player",
-    "service": "players",
-    "secret": "AolPT71hD5ynh/z2frT7qdFo6Cw=",
+    "service": "player",
+    "secret": "cgDSGvUCeTqq33rFMjfo6ezFVMw=",
     "authStrategies": [
       "jwt",
       "local"
@@ -21,7 +21,7 @@
       "audience": "https://yourdomain.com",
       "issuer": "feathers",
       "algorithm": "HS256",
-      "expiresIn": "1d"
+      "expiresIn": "365d"
     },
     "local": {
       "usernameField": "email",

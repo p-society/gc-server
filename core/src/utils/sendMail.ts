@@ -9,7 +9,7 @@ export default async function sendMail(email: string, OTP: number) {
     const requestOptions = {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json' // Specify that you are sending JSON data
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(postData) // Convert the data object to a JSON string
     };
