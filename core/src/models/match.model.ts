@@ -2,15 +2,49 @@
 //
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
+import MatchStatusEnum, { MatchStatusEnumList } from '../constants/match-status.enum';
 import { Application } from '../declarations';
-import { Model, Mongoose } from 'mongoose';
+import mongoose, { Model, Mongoose } from 'mongoose';
 
 export default function (app: Application): Model<any> {
   const modelName = 'match';
   const mongooseClient: Mongoose = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const schema = new Schema({
-    text: { type: String, required: true }
+    team1: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'team',
+    },
+    team2: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'team',
+    },
+    squad1: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'squad',
+      required: true,
+    },
+    squad2: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'squad',
+      required: true,
+    },
+    assignedAdmin: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'admin',
+      required: true,
+    },
+    venue: {
+      type: String,
+    },
+    date: {
+      type: Date,
+    },
+    status: {
+      type: String,
+      enum: MatchStatusEnumList,
+      default: MatchStatusEnum.SCHEDULED,
+    }
   }, {
     timestamps: true
   });

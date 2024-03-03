@@ -7,6 +7,7 @@ import squadPlayer from './squad-player/squad-player.service';
 import team from './team/team.service';
 import teamPlayer from './team-player/team-player.service';
 import match from './match/match.service';
+import admin from './admin/admin.service';
 // Don't remove this comment. It's needed to format import lines nicely.
 
 export default function (app: Application): void {
@@ -18,4 +19,5 @@ export default function (app: Application): void {
   app.configure(team);
   app.configure(teamPlayer);
   app.configure(match);
+  app.configure(admin);
 }
