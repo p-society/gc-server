@@ -4,10 +4,10 @@ enum RolesEnum {
     PLATFORM_SUPER_ADMIN = 32768,
  }
  
- export const RolesEnumList = [
-   RolesEnum.PLAYER,
-   RolesEnum.ADMIN,
-   RolesEnum.PLATFORM_SUPER_ADMIN,
- ];
+export const RolesEnumList = [
+  RolesEnum.PLAYER,
+  RolesEnum.ADMIN,
+  RolesEnum.PLATFORM_SUPER_ADMIN,
+];
  
- export default RolesEnum;
+export default RolesEnum;
