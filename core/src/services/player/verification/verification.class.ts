@@ -2,7 +2,7 @@ import { Id, NullableId, Paginated, Params, ServiceMethods } from '@feathersjs/f
 import { Application } from '../../../declarations';
 import { extractTokenFromHeader } from '../../../utils/extractTokenFromHeader';
 import { BadRequest } from '@feathersjs/errors';
-import * as jwt from "jsonwebtoken"
+import * as jwt from 'jsonwebtoken';
 import { Service } from 'feathers-mongoose';
 interface Data { }
 
@@ -33,28 +33,28 @@ export class Verification implements ServiceMethods<Data> {
   async create(data: Data, params?: Params): Promise<Data> {
     try {
       // @ts-ignore
-      if (!data?.otp) throw new BadRequest("OTP not provided")
-      if (!params) throw new Error("Params not found at verification/create");
+      if (!data?.otp) throw new BadRequest('OTP not provided');
+      if (!params) throw new Error('Params not found at verification/create');
 
       const token: string | null = extractTokenFromHeader(params);
 
-      if (!token) throw new BadRequest("Authentication Token Empty");
+      if (!token) throw new BadRequest('Authentication Token Empty');
       const secret = this.app.settings.authentication.secret;
 
       // @ts-ignore
       const { player, otp } = jwt.decode(token, secret);
-      console.log("player = ", player)
-      if (!player) throw new BadRequest("Invalid Token");
+      console.log('player = ', player);
+      if (!player) throw new BadRequest('Invalid Token');
 
       // @ts-ignore
       if (otp === data.otp) {
-        const PlayerService: Service = this.app.service("player");
-        console.log(player)
-        const p = new PlayerService.Model(player)
+        const PlayerService: Service = this.app.service('player');
+        console.log(player);
+        const p = new PlayerService.Model(player);
         const _p = await p.save();
         return _p;
       }
-      else throw new Error("OTP is invalid");
+      else throw new Error('OTP is invalid');
     } catch (error: any) {
       console.log(error);
       throw new Error(error.message);

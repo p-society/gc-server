@@ -7,11 +7,11 @@ enum BranchEnum {
 }
 
 export const BranchEnumList = [
-    BranchEnum.CE,
-    BranchEnum.CSE,
-    BranchEnum.ETC,
-    BranchEnum.EEE,
-    BranchEnum.IT,
+  BranchEnum.CE,
+  BranchEnum.CSE,
+  BranchEnum.ETC,
+  BranchEnum.EEE,
+  BranchEnum.IT,
 ];
 
 export default BranchEnum;

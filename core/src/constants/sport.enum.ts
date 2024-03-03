@@ -9,13 +9,13 @@ enum SportEnum {
 }
 
 export const SportEnumList = [
-    SportEnum.CRICKET,
-    SportEnum.FOOTBALL,
-    SportEnum.BASKETBALL,
-    SportEnum.CHESS,
-    SportEnum.VOLLEYBALL,
-    SportEnum.BADMINTON,
-    SportEnum.CARROM,
+  SportEnum.CRICKET,
+  SportEnum.FOOTBALL,
+  SportEnum.BASKETBALL,
+  SportEnum.CHESS,
+  SportEnum.VOLLEYBALL,
+  SportEnum.BADMINTON,
+  SportEnum.CARROM,
 ];
 
 export default SportEnum;

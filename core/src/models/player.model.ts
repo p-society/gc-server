@@ -12,7 +12,7 @@ import { SportEnumList } from '../constants/sport.enum';
 export default function (app: Application): Model<any> {
   const modelName = 'player';
   const mongooseClient: Mongoose = app.get('mongooseClient');
-  const { ObjectId } = mongoose.Schema.Types
+  const { ObjectId } = mongoose.Schema.Types;
   const schema = new mongooseClient.Schema({
     firstName: {
       type: String,
