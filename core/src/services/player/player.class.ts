@@ -6,6 +6,7 @@ import * as jwt from 'jsonwebtoken';
 import app from '../../app';
 import sendMail from '../../utils/sendMail';
 import generateOTP from '../../utils/generateOTP';
+import RolesEnum from '../../constants/roles.enum';
 
 export class Player extends Service {
   //eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -18,6 +19,7 @@ export class Player extends Service {
       if (!data.email || !data.password) throw new BadRequest("Email and Password is required");
       const otp = generateOTP()
       const secret = app.settings.authentication.secret;
+      data.role = RolesEnum.PLAYER;
       const token = jwt.sign({
         player: data,
         otp

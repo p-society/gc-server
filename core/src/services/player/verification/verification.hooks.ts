@@ -7,7 +7,7 @@ const { authenticate } = authentication.hooks;
 
 export default {
   before: {
-    all: [authenticate('jwt')],
+    all: [],
     find: [disallow()],
     get: [disallow()],
     create: [],
