@@ -3,14 +3,41 @@
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
 import { Application } from '../declarations';
-import { Model, Mongoose } from 'mongoose';
+import mongoose, { Model, Mongoose } from 'mongoose';
 
 export default function (app: Application): Model<any> {
   const modelName = 'teamPlayer';
   const mongooseClient: Mongoose = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const schema = new Schema({
-    text: { type: String, required: true }
+    team:{
+      type:mongoose.Schema.Types.ObjectId,
+      ref:'team',
+      required:true,
+    },
+    squad:{
+      type:mongoose.Schema.Types.ObjectId,
+      ref:'squad',
+      required:true,
+    },
+    position:{
+      type:String,
+    },
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+    },
+    deleted: {
+      type: Boolean,
+      default: false,
+      index: true,
+    },
+    deletedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+    },
+    deletedAt: {
+      type: Date
+    },
   }, {
     timestamps: true
   });

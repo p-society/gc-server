@@ -25,6 +25,7 @@ export default function (app: Application): Model<any> {
     email: {
       type: String,
       required: true,
+      index: true,
     },
     password: {
       type: String,
@@ -39,16 +40,19 @@ export default function (app: Application): Model<any> {
       type: String,
       required: true,
       enum: SportEnumList,
+      index: true,
     },
     branch: {
       type: String,
       required: true,
-      enum: BranchEnumList
+      enum: BranchEnumList,
+      index: true,
     },
     year: {
       type: Number,
       required: true,
       enum: [1, 2, 3, 4],
+      index: true,
     },
     contactNo: {
       type: String
@@ -60,7 +64,8 @@ export default function (app: Application): Model<any> {
     ],
     deleted: {
       type: Boolean,
-      default: false
+      default: false,
+      index: true,
     },
     deletedBy: {
       type: ObjectId,

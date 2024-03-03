@@ -2,15 +2,57 @@
 //
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
+import RolesEnum, { RolesEnumList } from '../constants/roles.enum';
 import { Application } from '../declarations';
-import { Model, Mongoose } from 'mongoose';
+import mongoose, { Model, Mongoose } from 'mongoose';
 
 export default function (app: Application): Model<any> {
   const modelName = 'platformSuperAdmin';
   const mongooseClient: Mongoose = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const schema = new Schema({
-    text: { type: String, required: true }
+    firstName: {
+      type: String,
+      required: true
+    },
+    lastName: {
+      type: String,
+      required: true
+    },
+    email: {
+      type: String,
+      required: true,
+      index: true,
+    },
+    password: {
+      type: String,
+      required: true
+    },
+    role: {
+      type: String,
+      required: true,
+      enum: RolesEnumList,
+      default: RolesEnum.PLATFORM_SUPER_ADMIN
+    },
+    contactNo: {
+      type: String
+    },
+    socials: [
+      {
+        type: Object
+      }
+    ],
+    // deleted: {
+    //   type: Boolean,
+    //   default: false,
+    //   index: true,
+    // },
+    // deletedBy: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    // },
+    // deletedAt: {
+    //   type: Date
+    // },
   }, {
     timestamps: true
   });
