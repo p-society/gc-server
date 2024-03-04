@@ -1,5 +1,7 @@
 import { HooksObject } from '@feathersjs/feathers';
 import * as authentication from '@feathersjs/authentication';
+import RolesEnum from '../../constants/roles.enum';
+import Permit from '../../hooks/permit';
 // Don't remove this comment. It's needed to format import lines nicely.
 
 const { authenticate } = authentication.hooks;
@@ -9,10 +11,10 @@ export default {
     all: [ authenticate('jwt') ],
     find: [],
     get: [],
-    create: [],
+    create: [Permit(RolesEnum.PLATFORM_SUPER_ADMIN)],
     update: [],
     patch: [],
-    remove: []
+    remove: [Permit(RolesEnum.PLATFORM_SUPER_ADMIN)]
   },
 
   after: {
