@@ -22,7 +22,7 @@
       "issuer": "feathers",
       "algorithm": "HS256",
       "expiresIn": "365d"
-    },
+    },  
     "local": {
       "usernameField": "email",
       "passwordField": "password"
@@ -30,3 +30,4 @@
   },
   "mongodb": "mongodb+srv://soubhik:soubhik@sports.vj9j4tb.mongodb.net/?retryWrites=true&w=majority&appName=Sports"
 }
+
