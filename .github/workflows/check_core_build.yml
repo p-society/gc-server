@@ -29,5 +29,6 @@ jobs:
 
       - name: build server
         run: |
+            cd core/
             yarn compile
 
