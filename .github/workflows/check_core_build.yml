@@ -1,0 +1,34 @@
+name: Test Build - Core Server
+
+on:
+  push:
+    branches:
+      - main
+      - ci
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20.11.1
+
+      - name: install packages
+        run: |
+            cd core/
+            npm i -g yarn@latest
+            yarn add
+
+      - name: build server
+        run: |
+            yarn compile
+
