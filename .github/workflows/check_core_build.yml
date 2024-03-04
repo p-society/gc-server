@@ -25,7 +25,7 @@ jobs:
         run: |
             cd core/
             npm i -g yarn@latest
-            yarn add
+            yarn install
 
       - name: build server
         run: |
