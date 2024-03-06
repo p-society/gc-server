@@ -32,9 +32,10 @@ jobs:
             cd scripts/
             chmod u+rwx nmfix.sh
             ./nmfix.sh
+            cd ..
             
       - name: build server
         run: |
-            cd ../core
+            cd core
             yarn compile
 
