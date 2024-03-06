@@ -15,7 +15,7 @@ export default function (app: Application): Model<any> {
       ref: 'player',
       required: true,
     },
-    Squad: {
+    squad: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'squad',
       required: true,

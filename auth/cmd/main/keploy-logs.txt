@@ -1,0 +1,7 @@
+🐰 Keploy: 2024-03-06T02:40:54+05:30 	[34mINFO[0m	Keploy config not found, continuing without configuration
+🐰 Keploy: 2024-03-06T02:40:54+05:30 	[34mINFO[0m		{"keploy test and mock path": "/home/soubhik/codes/gc-server/auth/cmd/main/keploy"}
+🐰 Keploy: 2024-03-06T02:41:01+05:30 	[34mINFO[0m	keploy initialized and probes added to the kernel.
+🐰 Keploy: 2024-03-06T02:41:03+05:30 	[34mINFO[0m	Proxy started at port:16789
+🐰 Keploy: 2024-03-06T02:41:03+05:30 	[34mINFO[0m	starting TCP DNS server at addr :26789
+🐰 Keploy: 2024-03-06T02:41:54+05:30 	[31mERROR[0m	failed to write the reply message to mongo client	{"error": "write tcp 172.22.4.63:16789->172.22.4.63:38116: write: broken pipe"}
+🐰 Keploy: 2024-03-06T02:41:54+05:30 	[31mERROR[0m	failed to write the reply message to mongo client	{"error": "write tcp 172.22.4.63:16789->172.22.4.63:38128: write: broken pipe"}

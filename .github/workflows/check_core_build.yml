@@ -27,8 +27,15 @@ jobs:
             npm i -g yarn@latest
             yarn install
 
+      - name: fix package type error (temp solution)
+        run: |
+            cd scripts/
+            chmod u+rwx nmfix.sh
+            ./nmfix.sh
+            cd ..
+            
       - name: build server
         run: |
-            cd core/
+            cd core
             yarn compile
 
