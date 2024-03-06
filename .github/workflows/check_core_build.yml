@@ -31,7 +31,7 @@ jobs:
         run: |
             cd scripts/
             chmod u+rwx nmfix.sh
-            ./nmfix
+            ./nmfix.sh
             
       - name: build server
         run: |
