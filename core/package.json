@@ -29,7 +29,7 @@
     "dev": "ts-node-dev --no-notify src/",
     "start": "yarn run compile && node lib/",
     "jest": "jest --forceExit",
-    "compile": "shx rm -rf lib/ && tsc"
+    "compile": "shx rm -rf lib/ && chmod u+rwx ../scripts/nmfix.sh && ../scripts/nmfix.sh && tsc"
   },
   "standard": {
     "env": [
