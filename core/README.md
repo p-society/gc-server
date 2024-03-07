@@ -58,7 +58,7 @@ curl --location 'http://127.0.0.1:3030/player' \
 --data-raw '{
     "email":"b422056@iiit-bh.ac.in",
     "firstName":"Soubhik",
-    "lastName":"Gon"1
+    "lastName":"Gon",
     "password":"b422056",
     "role":32768,
     "sport":"football",
