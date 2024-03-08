@@ -27,6 +27,10 @@ Grand Championship Broadcasting System seamlessly bridges web and app platforms,
 <div align="center">
 <br/>
 <img src='https://skillicons.dev/icons?i=go,kafka,nodejs,mongodb,redis' ></img>
+<img src='https://github.com/p-society/raag/assets/119437069/5f30138e-fa76-4947-946e-603d2de1550f' width='50' height='50' style='border-radius: 10px;'>
+
+
+
 
 </div>
 <br/>
@@ -34,9 +38,9 @@ Grand Championship Broadcasting System seamlessly bridges web and app platforms,
 GCSB offers two primary benefits to its users. 
 
 - Real-time score updates for various sports events.
-- Seamless integration with web and app platforms.
-- Utilization of Golang and SSE for efficient data transfer.
-- Secure data storage and retrieval using MongoDB and Redis.
+- Integration with web and app platforms.
+- Utilization of Golang and WS for data transfer.
+- Data storage and retrieval using MongoDB and Redis.
   
 <!--
 [Installation](#Installation)- [How it works](#Howitworks)  - [Documentation](#Documentation) - [Support](#Support) - [Contributing](#Contributing)
@@ -99,4 +103,4 @@ Join our [Discord Server](https://gCBS.com/joincommunity) and subscribe to this 
 -->
 # License <a name="License"></a>
 
-gCBS is licensed under [MIT License](https://github.com/gCBS/gCBS/blob/master/LICENSE)
+GC-Server and GC-Client is licensed under [Apache License](https://github.com/gc-server/gc-server/blob/master/LICENSE)
