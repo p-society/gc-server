@@ -8,14 +8,13 @@ require (
 )
 
 require (
+	github.com/IBM/sarama v1.43.0
 	github.com/golang-jwt/jwt v3.2.2+incompatible
-	github.com/joho/godotenv v1.5.1
 	go.mongodb.org/mongo-driver v1.14.0
 	golang.org/x/crypto v0.21.0
 )
 
 require (
-	github.com/IBM/sarama v1.43.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/eapache/go-resiliency v1.6.0 // indirect
 	github.com/eapache/go-xerial-snappy v0.0.0-20230731223053-c322873962e3 // indirect
