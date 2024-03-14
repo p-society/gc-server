@@ -1,14 +1,32 @@
-## Player (CRUD by PSA, Player only)
+## Schema Design
 
+> [!Last Modified - Mar 15 02:00 IST]  
+> Going forward, all the bug fixes, feature requests and schema changes will be applied and released from this document.
+
+
+## User
 - **_id** (ObjectId)
 - **firstName** (String)
 - **lastName** (String)
+- **email** (String)
 - **password** (String)
 - **role** (String)
-- **sport** (String)
-- **socials** (Object)
 - **branch** (String)
 - **year** (Number)
+- **deleted** (Boolean)
+- **deletedBy** (ObjectId)
+- **deletedAt** (Date)
+- **createdAt** (Date)
+- **updatedAt** (Date)
+- **__v** (Number)
+
+
+## Player (CRUD by PSA, Player only)
+
+- **_id** (ObjectId)
+- **user** (ObjectId)
+- **sport** (String)
+- **socials** (Object)
 - **deleted** (Boolean)
 - **deletedBy** (ObjectId)
 - **deletedAt** (Date)
@@ -33,8 +51,9 @@
 ## Squad Player (CRUD by PSA only)
 
 - **_id** (ObjectId)
-- **player _id** (ObjectId)
-- **squad _id** (ObjectId)
+- **user** (ObjectId)
+- **player** (ObjectId)
+- **squad** (ObjectId)
 - **createdAt** (Date)
 - **createdBy** (ObjectId)
 - **updatedAt** (Date)
@@ -45,7 +64,7 @@
 ## Team (CRUD by Admin + PSA)
 
 - **_id** (ObjectId)
-- **squad _id** (ObjectId)
+- **squad** (ObjectId)
 - **sport** (String)
 - **branch** (String)
 - **createdAt** (Date)
@@ -58,37 +77,40 @@
 ## Team Player (CRUD by PSA + Admin (Bulk insertion allowed))
 
 - **_id** (ObjectId)
-- **team _id** (ObjectId)
-- **player _id** (ObjectId)
-- **squad _id** (ObjectId)
+- **team** (ObjectId)
+- **user** (ObjectId)
+- **player** (ObjectId)
+- **squad** (ObjectId)
+- **position** (String, optional)
 - **createdBy** (ObjectId)
 - **createdAt** (Date)
 - **updatedAt** (Date)
 - **deleted** (Boolean)
 - **deletedBy** (ObjectId)
-- **position** (String, optional)
 
 ## Admins (An admin can only be created, deleted, read by PSA, update delete PSA + Admin)
 
 - **_id** (ObjectId)
-- **role** (String)
-- **isPlayer** (Boolean)
-- **player _id** (ObjectId)
+- **player** (ObjectId)
+- **user** (ObjectId)
+- **createdBy** (ObjectId)
+- **createdAt** (Date)
+- **updatedAt** (Date)
+- **deleted** (Boolean)
+- **deletedBy** (ObjectId)
 
 ## PSA (A PSA can create, update other PSA)
 
 - **_id** (ObjectId)
-- **isPlayer** (Boolean)
-- **player _id** (ObjectId)
-- **email** (String)
-- **password** (String)
+- **user** (ObjectId,Optional)
+- **player** (ObjectId,Optional)
 
 ## Match (Created, Deleted by PSA only, Can be updated by Admin + PSA only)
 
-- **team1 _id** (ObjectId)
-- **team2 _id** (ObjectId)
-- **squad1 _id** (ObjectId)
-- **squad2 _id** (ObjectId)
+- **team1** (ObjectId)
+- **team2** (ObjectId)
+- **squad1** (ObjectId)
+- **squad2** (ObjectId)
 - **assignedAdmin** (ObjectId)
 - **venue** (String)
 - **date** (Date)

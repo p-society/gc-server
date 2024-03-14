@@ -32,9 +32,9 @@ export default function (app: Application): Model<any> {
       required: true
     },
     role: {
-      type: String,
-      required: true,
-      enum: RolesEnumList
+      type: Number,
+      enum: RolesEnumList,
+      default:RolesEnum.PLAYER
     },
     sport: {
       type: String,
