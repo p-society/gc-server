@@ -23,7 +23,7 @@ jobs:
 
       - name: install packages
         run: |
-            cd core/
+            cd apis/
             npm i -g yarn@latest
             yarn install
             

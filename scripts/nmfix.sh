@@ -1,7 +1,7 @@
 
 #!/bin/bash
 
-file="../core/node_modules/@feathersjs/hooks/script/hooks.d.ts"
+file="../apis/node_modules/@feathersjs/hooks/script/hooks.d.ts"
 old_word="DecoratorContext"
 new_word="any"
 line_number=9
