@@ -1,7 +1,7 @@
 ## Schema Design
 
-> [!Last Modified - Mar 15 02:00 IST]  
-> Going forward, all the bug fixes, feature requests and schema changes will be applied and released from this document.
+> [!IMPORTANT]  
+> Going forward, all the bug fixes, feature requests and schema patches will be applied and released from this document.
 
 
 ## User
