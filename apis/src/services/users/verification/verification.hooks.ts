@@ -1,12 +1,13 @@
 import { HooksObject } from '@feathersjs/feathers';
+import * as local from '@feathersjs/authentication-local';
 import * as authentication from '@feathersjs/authentication';
 // Don't remove this comment. It's needed to format import lines nicely.
 
 const { authenticate } = authentication.hooks;
-
+const { hashPassword, protect } = local.hooks;
 export default {
   before: {
-    all: [ authenticate('jwt') ],
+    all: [],
     find: [],
     get: [],
     create: [],
@@ -16,7 +17,9 @@ export default {
   },
 
   after: {
-    all: [],
+    all: [
+      protect('password')
+    ],
     find: [],
     get: [],
     create: [],

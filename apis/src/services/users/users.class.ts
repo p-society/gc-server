@@ -20,8 +20,9 @@ export class Users extends Service {
       const otp = generateOTP();
       const secret = app.settings.authentication.secret;
       data.role = RolesEnum.PLAYER;
+      console.log(data)
       const token = jwt.sign({
-        player: data,
+        user: data,
         otp
       }, secret);
 

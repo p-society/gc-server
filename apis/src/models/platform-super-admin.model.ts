@@ -14,15 +14,7 @@ export default function (app: Application): Model<any> {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'users',
       required: true,
-    },
-    contactNo: {
-      type: String
-    },
-    socials: [
-      {
-        type: Object
-      }
-    ],
+    }
   }, {
     timestamps: true
   });

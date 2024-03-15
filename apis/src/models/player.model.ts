@@ -39,7 +39,8 @@ export default function (app: Application): Model<any> {
       ref: 'player'
     },
     deletedAt: {
-      type: Date
+      type: Date,
+      default:Date.now()
     },
   }, {
     timestamps: true

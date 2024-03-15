@@ -1,5 +1,7 @@
 import { HooksObject } from '@feathersjs/feathers';
 import * as authentication from '@feathersjs/authentication';
+import BlockCrossDelete from '../../hooks/block-cross-delete';
+import { discard } from 'feathers-hooks-common';
 // Don't remove this comment. It's needed to format import lines nicely.
 
 const { authenticate } = authentication.hooks;
@@ -12,7 +14,7 @@ export default {
     create: [],
     update: [],
     patch: [],
-    remove: []
+    remove: [BlockCrossDelete()]
   },
 
   after: {

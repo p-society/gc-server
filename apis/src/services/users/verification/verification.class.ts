@@ -4,7 +4,7 @@ import { extractTokenFromHeader } from '../../../utils/extractTokenFromHeader';
 import { BadRequest } from '@feathersjs/errors';
 import { Service } from 'feathers-mongoose';
 import { Users } from '../users.class';
-
+import * as jwt from "jsonwebtoken"
 interface Data { }
 
 interface ServiceOptions { }
@@ -43,16 +43,19 @@ export class Verification implements ServiceMethods<Data> {
       const secret = this.app.settings.authentication.secret;
 
       // @ts-ignore
-      const { player, otp } = jwt.decode(token, secret);
-      console.log('player = ', player);
-      if (!player) throw new BadRequest('Invalid Token');
+
+      const decodedVal = jwt.decode(token, secret);
+      console.log(decodedVal)
+      // @ts-ignore
+      const { user, otp } = decodedVal
+      console.log('user = ', user);
+      if (!user) throw new BadRequest('Invalid Token');
 
       // @ts-ignore
       if (otp === data.otp) {
         const UserService: Users & ServiceAddons<any> = this.app.service('users');
-        console.log(player);
-        const user = await UserService._create(player);
-        return user
+        console.log(user);
+        return await UserService._create(user);
       }
       else throw new Error('OTP is invalid');
     } catch (error: any) {
