@@ -1,29 +1,30 @@
-import { Id, NullableId, Paginated, Params, ServiceMethods } from '@feathersjs/feathers';
+import { Id, NullableId, Paginated, Params, ServiceAddons, ServiceMethods } from '@feathersjs/feathers';
 import { Application } from '../../../declarations';
 import { extractTokenFromHeader } from '../../../utils/extractTokenFromHeader';
 import { BadRequest } from '@feathersjs/errors';
 import { Service } from 'feathers-mongoose';
+import { Users } from '../users.class';
 
-interface Data {}
+interface Data { }
 
-interface ServiceOptions {}
+interface ServiceOptions { }
 
 export class Verification implements ServiceMethods<Data> {
   app: Application;
   options: ServiceOptions;
 
-  constructor (options: ServiceOptions = {}, app: Application) {
+  constructor(options: ServiceOptions = {}, app: Application) {
     this.options = options;
     this.app = app;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async find (params?: Params): Promise<Data[] | Paginated<Data>> {
+  async find(params?: Params): Promise<Data[] | Paginated<Data>> {
     return [];
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async get (id: Id, params?: Params): Promise<Data> {
+  async get(id: Id, params?: Params): Promise<Data> {
     return {
       id, text: `A new message with ID: ${id}!`
     };
@@ -48,11 +49,10 @@ export class Verification implements ServiceMethods<Data> {
 
       // @ts-ignore
       if (otp === data.otp) {
-        const PlayerService: Service = this.app.service('player');
+        const UserService: Users & ServiceAddons<any> = this.app.service('users');
         console.log(player);
-        const p = new PlayerService.Model(player);
-        const _p = await p.save();
-        return _p;
+        const user = await UserService._create(player);
+        return user
       }
       else throw new Error('OTP is invalid');
     } catch (error: any) {
@@ -62,17 +62,17 @@ export class Verification implements ServiceMethods<Data> {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async update (id: NullableId, data: Data, params?: Params): Promise<Data> {
+  async update(id: NullableId, data: Data, params?: Params): Promise<Data> {
     return data;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async patch (id: NullableId, data: Data, params?: Params): Promise<Data> {
+  async patch(id: NullableId, data: Data, params?: Params): Promise<Data> {
     return data;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async remove (id: NullableId, params?: Params): Promise<Data> {
+  async remove(id: NullableId, params?: Params): Promise<Data> {
     return { id };
   }
 }

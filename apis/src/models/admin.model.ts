@@ -12,10 +12,9 @@ export default function (app: Application): Model<any> {
   const mongooseClient: Mongoose = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const schema = new Schema({
-    role: {
-      type: Number,
-      enum: RolesEnumList,
-      default: RolesEnum.ADMIN,
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'users'
     },
     player: {
       type: mongoose.Schema.Types.ObjectId,

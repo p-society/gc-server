@@ -3,14 +3,26 @@
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
 import { Application } from '../declarations';
-import { Model, Mongoose } from 'mongoose';
+import mongoose, { Model, Mongoose } from 'mongoose';
 
 export default function (app: Application): Model<any> {
   const modelName = 'platformSuperAdmin';
   const mongooseClient: Mongoose = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const schema = new Schema({
-    text: { type: String, required: true }
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'users',
+      required: true,
+    },
+    contactNo: {
+      type: String
+    },
+    socials: [
+      {
+        type: Object
+      }
+    ],
   }, {
     timestamps: true
   });

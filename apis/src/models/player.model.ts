@@ -14,48 +14,15 @@ export default function (app: Application): Model<any> {
   const mongooseClient: Mongoose = app.get('mongooseClient');
   const { ObjectId } = mongoose.Schema.Types;
   const schema = new mongooseClient.Schema({
-    firstName: {
-      type: String,
-      required: true
-    },
-    lastName: {
-      type: String,
-      required: true
-    },
-    email: {
-      type: String,
-      required: true,
-      index: true,
-    },
-    password: {
-      type: String,
-      required: true
-    },
-    role: {
-      type: Number,
-      enum: RolesEnumList,
-      default:RolesEnum.PLAYER
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'users',
     },
     sport: {
       type: String,
       required: true,
       enum: SportEnumList,
       index: true,
-    },
-    branch: {
-      type: String,
-      required: true,
-      enum: BranchEnumList,
-      index: true,
-    },
-    year: {
-      type: Number,
-      required: true,
-      enum: [1, 2, 3, 4],
-      index: true,
-    },
-    contactNo: {
-      type: String
     },
     socials: [
       {
