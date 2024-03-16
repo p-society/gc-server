@@ -19,35 +19,14 @@ declare module './declarations' {
 export default function (app: Application): void {
   const authentication = new AuthenticationService(app);
 
-  class CustomLocalStrategy extends LocalStrategy {
-    async findEntity(username: string, params: Params): Promise<any> {
-      // Find the user entity
-      console.log(`username = ${username}`)
-      const UserService: Users & ServiceAddons<any> = app.service('users');
-      const user: any[] | Paginated<any> = await UserService.find({
-        query: { email: username },
-        paginate: false // To get only one user
-      });
-      // @ts-ignore
-      if (user.length === 0) {
-        return null; // User not found
-      }
-
-      // Get the first user (assuming email is unique)
-      // @ts-ignore
-      const foundUser = user[0];
-      return { ...foundUser };
-    }
-  }
-
   authentication.register('jwt', new JWTStrategy());
-  authentication.register('local', new CustomLocalStrategy());
+  authentication.register('local', new LocalStrategy());
 
   app.use('/authentication', authentication);
   app.configure(expressOauth());
-  const service = app.service('authentication');
+  const authService = app.service('authentication');
 
-  service.hooks({
+  authService.hooks({
     after: {
       create: [
         async (context: HookContext) => {
@@ -75,7 +54,7 @@ export default function (app: Application): void {
               query: { user: user._id },
               paginate: false
             });
-            
+
             adminData = psa.length > 0 ? psa[0] : null;
             console.log(adminData)
             context.result.user.adminData = adminData;

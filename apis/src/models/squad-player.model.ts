@@ -10,31 +10,31 @@ export default function (app: Application): Model<any> {
   const mongooseClient: Mongoose = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const schema = new Schema({
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'users',
-      required: true,
-    },
-    player: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'player',
-      required: true,
-    },
-    squad: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'squad',
-      required: true,
-    },
-    createdBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'platformSuperAdmin',
-      required: true,
-    },
-    deleted: {
-      type: Boolean,
-      default: false,
-      index: true,
-    },
+    // user: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: 'users',
+    //   required: true,
+    // },
+    // player: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: 'player',
+    //   required: true,
+    // },
+    // squad: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: 'squad',
+    //   required: true,
+    // },
+    // createdBy: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: 'platformSuperAdmin',
+    //   required: true,
+    // },
+    // deleted: {
+    //   type: Boolean,
+    //   default: false,
+    //   index: true,
+    // },
     description: {
       type: String,
     },
