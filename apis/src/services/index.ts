@@ -7,6 +7,11 @@ import formFieldSections from './form-field-sections/form-field-sections.service
 import getForm from './get-form/get-form.service';
 import gamesList from './games/list/list.service';
 import orgGames from './org-games/org-games.service';
+import gamesBadminton from './games/badminton/badminton.service';
+import managementTeams from './management/teams/teams.service';
+import managementSquads from './management/squads/squads.service';
+import managementMatches from './management/matches/matches.service';
+import managementCaptainLinkGenerator from './management/captain/link-generator/link-generator.service';
 // Don't remove this comment. It's needed to format import lines nicely.
 
 export default function (app: Application): void {
@@ -18,4 +23,9 @@ export default function (app: Application): void {
   app.configure(getForm);
   app.configure(gamesList);
   app.configure(orgGames);
+  app.configure(gamesBadminton);
+  app.configure(managementTeams);
+  app.configure(managementSquads);
+  app.configure(managementMatches);
+  app.configure(managementCaptainLinkGenerator);
 }
