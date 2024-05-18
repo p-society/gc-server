@@ -1,4 +1,4 @@
-// management/matches-model.ts - A mongoose model
+// management/team/players-model.ts - A mongoose model
 //
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
@@ -6,55 +6,36 @@ import { Application } from '../declarations';
 import { Model, Mongoose } from 'mongoose';
 
 export default function (app: Application): Model<any> {
-  const modelName = 'matches';
+  const modelName = 'team-players';
   const mongooseClient: Mongoose = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const { ObjectId } = Schema.Types;
   const schema = new Schema({
-    team1: {
+    user: {
+      type: ObjectId,
+      ref: 'users',
+      required: true,
+    },
+    team: {
       type: ObjectId,
       ref: 'teams',
       required: true,
     },
-    team2: {
-      type: ObjectId,
-      ref: 'teams',
-      required: true,
-    },
-    squad1: {
+    squad: {
       type: ObjectId,
       ref: 'squads',
       required: true,
     },
-    squad2: {
+    squadPlayer: {
       type: ObjectId,
-      ref: 'squads',
+      ref: 'squadPlayers',
       required: true,
     },
-    date: {
-      type: Date
-    },
-    location: {
-      type: String
-    },
-    status: {
-      type: String
-    },
-    result: {
-      type: String
-    },
-    assignedAdmin: {
-      type: ObjectId,
-      ref: 'users'
-    },
-    // adminExpiry: {
-
-    // },
     deleted: {
       type: Boolean
     },
     deletedAt: {
-      type: Date
+      type:Date
     },
     deleteBy: {
       type: ObjectId,

@@ -1,4 +1,4 @@
-// key-generator-model.ts - A mongoose model
+// management/squads/players-model.ts - A mongoose model
 //
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
@@ -6,11 +6,31 @@ import { Application } from '../declarations';
 import { Model, Mongoose } from 'mongoose';
 
 export default function (app: Application): Model<any> {
-  const modelName = 'keyGenerator';
+  const modelName = 'team-players';
   const mongooseClient: Mongoose = app.get('mongooseClient');
   const { Schema } = mongooseClient;
+  const { ObjectId } = Schema.Types;
   const schema = new Schema({
-    text: { type: String, required: true }
+    user: {
+      type: ObjectId,
+      ref: 'users',
+      required: true,
+    },
+    squad: {
+      type: ObjectId,
+      ref: 'squads',
+      required: true,
+    },
+    deleted: {
+      type: Boolean
+    },
+    deletedAt: {
+      type:Date
+    },
+    deleteBy: {
+      type: ObjectId,
+      ref: 'users',
+    }
   }, {
     timestamps: true
   });

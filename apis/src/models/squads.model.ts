@@ -9,8 +9,25 @@ export default function (app: Application): Model<any> {
   const modelName = 'squads';
   const mongooseClient: Mongoose = app.get('mongooseClient');
   const { Schema } = mongooseClient;
+  const { ObjectId } = Schema.Types;
   const schema = new Schema({
-    text: { type: String, required: true }
+    name: {
+      type: String,
+      required: true,
+    },
+    game: {
+      type: String
+    },
+    deleted: {
+      type: Boolean
+    },
+    deletedAt: {
+      type:Date
+    },
+    deleteBy: {
+      type: ObjectId,
+      ref: 'users',
+    }
   }, {
     timestamps: true
   });

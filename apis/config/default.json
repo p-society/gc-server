@@ -29,4 +29,18 @@
     }
   },
   "mongodb": "mongodb://localhost:27017/apis"
+  ,
+  "organization":{
+    "institute":"IIIT-Bhubaneswar",
+    "address":"Gothapatna,Bhubaneswar"
+  },
+  "rootAdmin": {
+    "firstName": "Soubhik",
+    "lastName": "Gon",
+    "phone": "6370462354",
+    "email": "soubhikgon@gmail.com",
+    "password": "skg23444",
+    "role": 65535,
+    "gender": "Male"
+  }
 }

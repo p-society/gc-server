@@ -57,6 +57,7 @@
     "mongodb-core": "^3.2.7",
     "mongoose": "^6.3.6",
     "serve-favicon": "^2.5.0",
+    "unique-names-generator": "^4.7.1",
     "winston": "^3.0.0"
   },
   "devDependencies": {

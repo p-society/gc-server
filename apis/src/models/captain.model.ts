@@ -1,4 +1,4 @@
-// organizations-model.ts - A mongoose model
+// management/captain-model.ts - A mongoose model
 //
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
@@ -6,11 +6,27 @@ import { Application } from '../declarations';
 import { Model, Mongoose } from 'mongoose';
 
 export default function (app: Application): Model<any> {
-  const modelName = 'organizations';
+  const modelName = 'captain';
   const mongooseClient: Mongoose = app.get('mongooseClient');
   const { Schema } = mongooseClient;
+  const { ObjectId } = Schema.Types;
   const schema = new Schema({
-    text: { type: String, required: true }
+    user: {
+      type: ObjectId,
+      ref: 'users',
+      required: true
+    },
+    team: {
+      type: ObjectId,
+      ref: 'teams',
+      required: true
+    },
+    deleted: {
+
+    },
+    deletedAt: {
+
+    },
   }, {
     timestamps: true
   });
