@@ -24,13 +24,16 @@ export default function (app: Application): Model<any> {
       type: ObjectId,
       ref: 'users',
     },
+    data: {
+      type: Object,
+    },
     deleted: {
       type: Boolean
     },
     deletedAt: {
-      type:Date
+      type: Date
     },
-    deleteBy: {
+    deletedBy: {
       type: ObjectId,
       ref: 'users',
     }

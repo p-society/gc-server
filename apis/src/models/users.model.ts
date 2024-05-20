@@ -38,16 +38,16 @@ export default function (app: Application): Model<any> {
       index: true,
       default: app.get('organization').orgKey,
     },
-    data: { //will be extracted via form fields
-      type: Object,
+    data: {
+      type: Object, //will be extracted via form fields
     },
     deleted: {
       type: Boolean
     },
     deletedAt: {
-      type:Date
+      type: Date
     },
-    deleteBy: {
+    deletedBy: {
       type: ObjectId,
       ref: 'users',
     }

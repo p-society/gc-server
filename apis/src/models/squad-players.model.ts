@@ -27,7 +27,7 @@ export default function (app: Application): Model<any> {
     deletedAt: {
       type:Date
     },
-    deleteBy: {
+    deletedBy: {
       type: ObjectId,
       ref: 'users',
     }

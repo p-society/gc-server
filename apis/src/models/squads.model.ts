@@ -18,13 +18,16 @@ export default function (app: Application): Model<any> {
     game: {
       type: String
     },
+    data: {
+      type: Object,
+    },
     deleted: {
       type: Boolean
     },
     deletedAt: {
       type:Date
     },
-    deleteBy: {
+    deletedBy: {
       type: ObjectId,
       ref: 'users',
     }

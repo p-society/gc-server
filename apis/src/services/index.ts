@@ -13,6 +13,8 @@ import managementCaptainLinkGenerator from './management/captain/link-generator/
 import managementCaptain from './management/captain/captain.service';
 import managementTeamsPlayers from './management/teams/players/players.service';
 import managementSquadsPlayers from './management/squads/players/players.service';
+import tournaments from './tournaments/tournaments.service';
+import tournamentTeams from './tournament-teams/tournament-teams.service';
 // Don't remove this comment. It's needed to format import lines nicely.
 
 export default function (app: Application): void {
@@ -30,4 +32,6 @@ export default function (app: Application): void {
   app.configure(gamesList);
   app.configure(managementTeamsPlayers);
   app.configure(managementSquadsPlayers);
+  app.configure(tournaments);
+  app.configure(tournamentTeams);
 }

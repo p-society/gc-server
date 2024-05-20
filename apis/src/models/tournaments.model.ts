@@ -1,4 +1,4 @@
-// org-games-model.ts - A mongoose model
+// tournaments-model.ts - A mongoose model
 //
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
@@ -7,18 +7,37 @@ import { Application } from '../declarations';
 import { Model, Mongoose } from 'mongoose';
 
 export default function (app: Application): Model<any> {
-  const modelName = 'orgGames';
+  const modelName = 'tournaments';
   const mongooseClient: Mongoose = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const { ObjectId } = Schema.Types;
   const schema = new Schema({
+    name: {
+      type: String,
+      required: true,
+    },
     game: {
       type: String,
       enum: GamesListEnums,
       required: true,
     },
-    data: {
+    startDate: {
+      type: Date,
+      required: true,
+    },
+    endDate: {
+      type: Date,
+      required: true,
+    },
+    location: {
+      type: String,
+    },
+    createdBy: {
       type: ObjectId,
+      ref: 'users',
+    },
+    data: {
+      type: Object,
     },
     deleted: {
       type: Boolean,
