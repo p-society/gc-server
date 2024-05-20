@@ -28,11 +28,10 @@
       "passwordField": "password"
     }
   },
-  "mongodb": "mongodb://localhost:27017/apis"
-  ,
-  "organization":{
-    "institute":"IIIT-Bhubaneswar",
-    "address":"Gothapatna,Bhubaneswar"
+  "mongodb": "mongodb://localhost:27017/apis",
+  "organization": {
+    "institute": "IIIT-Bhubaneswar",
+    "address": "Gothapatna,Bhubaneswar"
   },
   "rootAdmin": {
     "firstName": "Soubhik",
@@ -42,5 +41,6 @@
     "password": "skg23444",
     "role": 65535,
     "gender": "Male"
-  }
+  },
+  "postgres": "postgres://postgres:@localhost:5432/apis"
 }

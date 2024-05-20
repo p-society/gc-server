@@ -538,7 +538,7 @@
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.57.0.tgz#a5417ae8427873f1dd08b70b3574b453e67b5f7f"
   integrity sha512-Ys+3g2TaW7gADOJzPt83SJtCDhMjndcDMFVQ/Tj9iA1BfJzFKD9mAUXT3OenpuPHbI6P/myECxRJrofUsDx/5g==
 
-"@feathersjs/adapter-commons@^4.5.11":
+"@feathersjs/adapter-commons@^4.5.11", "@feathersjs/adapter-commons@^4.5.15":
   version "4.5.17"
   resolved "https://registry.yarnpkg.com/@feathersjs/adapter-commons/-/adapter-commons-4.5.17.tgz#1921c9264b4e8c9107205d60993be09d0d9426be"
   integrity sha512-Tq39nQApJCq4/q9DMaO+qKqyCNDZ4q2Dde3e3PPzDvpTJgnQLyVgc4lUCNnLGejYZHT34rpCka9/AXxkEfJrQQ==
@@ -589,7 +589,7 @@
     long-timeout "^0.1.1"
     uuid "^8.3.2"
 
-"@feathersjs/commons@^4.5.11", "@feathersjs/commons@^4.5.16":
+"@feathersjs/commons@^4.5.11", "@feathersjs/commons@^4.5.15", "@feathersjs/commons@^4.5.16":
   version "4.5.16"
   resolved "https://registry.yarnpkg.com/@feathersjs/commons/-/commons-4.5.16.tgz#878311fe316459642ba53399e0758efa021ed351"
   integrity sha512-FXKAcGApcd9w3M42gjLi8+oaPijabS8qbD4ynQK3PM8J7BqpbSdCzURsI7EpReoQxFxdhrR4jix8cQIC/iAeuw==
@@ -1146,6 +1146,11 @@
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@tsconfig/node16/-/node16-1.0.4.tgz#0b92dcc0cc1c81f6f306a381f28e31b1a56536e9"
   integrity sha512-vxhUy4J8lyeyinH7Azl1pdd43GJhZH/tP2weN8TntQblOY+A0XbT8DJk1/oCPuOOyg/Ja757rG0CgHcWC8OfMA==
+
+"@types/bluebird@^3.5.42":
+  version "3.5.42"
+  resolved "https://registry.yarnpkg.com/@types/bluebird/-/bluebird-3.5.42.tgz#7ec05f1ce9986d920313c1377a5662b1b563d366"
+  integrity sha512-Jhy+MWRlro6UjVi578V/4ZGNfeCOcNCp0YaFNIUGFKlImowqwb1O/22wDVk3FDGMLqxdpOV3qQHD5fPEH4hK6A==
 
 "@types/body-parser@*":
   version "1.19.5"
@@ -2281,6 +2286,15 @@ feathers-mongoose@^8.5.1:
     "@feathersjs/adapter-commons" "^4.5.11"
     "@feathersjs/commons" "^4.5.11"
     "@feathersjs/errors" "^4.5.11"
+
+feathers-sequelize@^6.3.4:
+  version "6.4.0"
+  resolved "https://registry.yarnpkg.com/feathers-sequelize/-/feathers-sequelize-6.4.0.tgz#0f193142f52a58fb4c3ee7218eafed53b2c9a790"
+  integrity sha512-EAnv0RuTOOi7yk2wASKO6baETf1A8VF+NUs/4XMquTG+IHPpNvmuPL2vOdKVjw3XQoUR8RSQ8MhFGzg2dEB7ag==
+  dependencies:
+    "@feathersjs/adapter-commons" "^4.5.15"
+    "@feathersjs/commons" "^4.5.15"
+    "@feathersjs/errors" "^4.5.15"
 
 fecha@^4.2.0:
   version "4.2.3"

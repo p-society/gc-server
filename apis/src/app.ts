@@ -20,6 +20,7 @@ import { HookContext as FeathersHookContext } from '@feathersjs/feathers';
 import authentication from './authentication';
 import mongodb from './mongodb';
 import mongoose from './mongoose';
+import sequelize from './sequelize';
 // Don't remove this comment. It's needed to format import lines nicely.
 
 const app: Application = express(feathers());
@@ -46,6 +47,8 @@ app.configure(socketio());
 app.configure(mongodb);
 
 app.configure(mongoose);
+
+app.configure(sequelize);
 
 // Configure other middleware (see `middleware/index.ts`)
 app.configure(middleware);

@@ -52,6 +52,7 @@
     "cors": "^2.8.5",
     "feathers-mongodb": "^6.4.1",
     "feathers-mongoose": "^8.5.1",
+    "feathers-sequelize": "^6.3.4",
     "helmet": "^5.1.0",
     "mongodb": "^4.7.0",
     "mongodb-core": "^3.2.7",
@@ -61,6 +62,7 @@
     "winston": "^3.0.0"
   },
   "devDependencies": {
+    "@types/bluebird": "^3.5.42",
     "@types/compression": "^1.7.5",
     "@types/cors": "^2.8.17",
     "@types/jsonwebtoken": "^9.0.6",
