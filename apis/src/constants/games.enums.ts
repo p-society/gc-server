@@ -8,11 +8,11 @@ enum GamesListEnums {
 }
 
 export const GamesListEnumsList = [
-    GamesListEnums.FOOTBALL,
-    GamesListEnums.BADMINTON,
-    GamesListEnums.CRICKET,
-    GamesListEnums.TABLE_TENNIS,
-    GamesListEnums.CHESS,
+  GamesListEnums.FOOTBALL,
+  GamesListEnums.BADMINTON,
+  GamesListEnums.CRICKET,
+  GamesListEnums.TABLE_TENNIS,
+  GamesListEnums.CHESS,
 ];
 
 export default GamesListEnums;

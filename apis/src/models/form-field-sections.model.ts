@@ -9,8 +9,48 @@ export default function (app: Application): Model<any> {
   const modelName = 'formFieldSections';
   const mongooseClient: Mongoose = app.get('mongooseClient');
   const { Schema } = mongooseClient;
+  const { ObjectId } = Schema.Types;
   const schema = new Schema({
-    text: { type: String, required: true }
+    organization: {
+      type: ObjectId,
+      ref: 'organization',
+      required: true
+    },
+    createdBy: {
+      type: ObjectId,
+      required: true,
+      ref: 'users',
+    },
+    name: {
+      type: String,
+      required: true,
+      trim: true
+    },
+    description: {
+      type: String,
+      trim: true
+    },
+    sectionType: {
+      type: String,
+      default: 'custom',
+      enum: ['custom', 'system'],
+    },
+    module: {
+      type: String,
+      default: 'user',
+      enum: ['user', 'vendor'],
+    },
+    deleted: {
+      type: Boolean,
+      index: true,
+    },
+    deletedBy: {
+      type: ObjectId,
+      ref: 'users',
+    },
+    deletedAt: {
+      type: Date
+    }
   }, {
     timestamps: true
   });
