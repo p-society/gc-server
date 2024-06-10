@@ -1,52 +1,60 @@
-import { Id, NullableId, Paginated, Params, ServiceMethods } from '@feathersjs/feathers';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Params, ServiceMethods } from '@feathersjs/feathers';
 import { Application } from '../../declarations';
+// import axios from 'axios';
+// import {PublishCommand, SNSClient} from '@aws-sdk/client-sns';
 
-interface Data {}
+interface Data {
+  email: string;
+}
 
-interface ServiceOptions {}
+interface ServiceOptions { }
+
+function generateOTP() {
+  const digits = '0123456789';
+  let OTP = '';
+
+  for (let i = 0; i < 4; i++) {
+    const randomIndex = Math.floor(Math.random() * digits.length);
+    OTP += digits[randomIndex];
+  }
+
+  return OTP;
+}
 
 export class SendOtp implements ServiceMethods<Data> {
   app: Application;
   options: ServiceOptions;
 
-  constructor (options: ServiceOptions = {}, app: Application) {
+  constructor(options: ServiceOptions = {}, app: Application) {
     this.options = options;
     this.app = app;
   }
-
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars,@typescript-eslint/ban-ts-comment
+  // @ts-ignore
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async find (params?: Params): Promise<Data[] | Paginated<Data>> {
-    return [];
-  }
+  async create(data: Data, params?: Params): Promise<{ message: string, isNewUser: boolean }> {
+    const otpService = this.app.service('otp');
+    const userService = this.app.service('users');
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async get (id: Id, params?: Params): Promise<Data> {
+    const otp = generateOTP();
+
+    await otpService._create({
+      type: 'email',
+      dest: data.email,
+      otp
+    });
+
+    const [user] = await userService._find({
+      query: {
+        email: data.email
+      },
+      paginate: false
+    });
+
     return {
-      id, text: `A new message with ID: ${id}!`
+      message: 'OTP Send Successfully',
+      isNewUser: !Boolean(user),
     };
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async create (data: Data, params?: Params): Promise<Data> {
-    if (Array.isArray(data)) {
-      return Promise.all(data.map(current => this.create(current, params)));
-    }
-
-    return data;
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async update (id: NullableId, data: Data, params?: Params): Promise<Data> {
-    return data;
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async patch (id: NullableId, data: Data, params?: Params): Promise<Data> {
-    return data;
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async remove (id: NullableId, params?: Params): Promise<Data> {
-    return { id };
   }
 }
