@@ -1,5 +1,7 @@
 import * as feathersAuthentication from '@feathersjs/authentication';
 import * as local from '@feathersjs/authentication-local';
+import removeOtp from './hooks/remove-otp';
+import validateOTP from './hooks/validate-otp';
 // Don't remove this comment. It's needed to format import lines nicely.
 
 const { authenticate } = feathersAuthentication.hooks;
@@ -10,7 +12,7 @@ export default {
     all: [],
     find: [authenticate('jwt')],
     get: [authenticate('jwt')],
-    create: [authenticate('jwt'), hashPassword('password')],
+    create: [hashPassword('password'),validateOTP()],
     update: [hashPassword('password'), authenticate('jwt')],
     patch: [hashPassword('password'), authenticate('jwt')],
     remove: [authenticate('jwt')]
@@ -24,7 +26,7 @@ export default {
     ],
     find: [],
     get: [],
-    create: [],
+    create: [removeOtp()],
     update: [],
     patch: [],
     remove: []

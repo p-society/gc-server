@@ -10,7 +10,19 @@ export default function (app: Application): Model<any> {
   const mongooseClient: Mongoose = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const schema = new Schema({
-    text: { type: String, required: true }
+    type: {
+      type: String,
+      enum: ['mobile', 'email'],
+      default: 'mobile'
+    },
+    dest: {
+      type: String,
+      required: true
+    },
+    otp: {
+      type: String,
+      required: true
+    }
   }, {
     timestamps: true
   });

@@ -1,7 +1,7 @@
 // Application hooks that run for every service
 // Don't remove this comment. It's needed to format import lines nicely.
 
-import { disallow } from "feathers-hooks-common";
+import { disallow } from 'feathers-hooks-common';
 
 export default {
   before: {

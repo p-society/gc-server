@@ -13,8 +13,8 @@
     "authStrategies": [
       "jwt",
       "local",
-      "gc-local-email",
-      "gc-server-email"
+      "local-email",
+      "server-email"
     ],
     "jwtOptions": {
       "header": {
