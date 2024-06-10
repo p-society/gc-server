@@ -29,11 +29,11 @@
       "usernameField": "email",
       "passwordField": "password"
     },
-    "gc-local-email": {
+    "local-email": {
       "usernameField": "email",
       "passwordField": "code"
     },
-    "gc-server-email":{
+    "server-email":{
       "usernameField": "email",
       "passwordField": "code"
     }
@@ -51,6 +51,5 @@
     "password": "skg23444",
     "role": 65535,
     "gender": "Male"
-  },
-  "postgres": "postgres://postgres:@localhost:5432/apis"
+  }
 }
