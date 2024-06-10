@@ -12,7 +12,9 @@
     "secret": "Py+bnhQaQlV88QmMdpDGKceWxnU=",
     "authStrategies": [
       "jwt",
-      "local"
+      "local",
+      "gc-local-email",
+      "gc-server-email"
     ],
     "jwtOptions": {
       "header": {
@@ -21,11 +23,19 @@
       "audience": "https://yourdomain.com",
       "issuer": "feathers",
       "algorithm": "HS256",
-      "expiresIn": "1d"
+      "expiresIn": "365d"
     },
     "local": {
       "usernameField": "email",
       "passwordField": "password"
+    },
+    "gc-local-email": {
+      "usernameField": "email",
+      "passwordField": "code"
+    },
+    "gc-server-email":{
+      "usernameField": "email",
+      "passwordField": "code"
     }
   },
   "mongodb": "mongodb://localhost:27017/apis",
