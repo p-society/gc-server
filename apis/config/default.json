@@ -12,7 +12,9 @@
     "secret": "Py+bnhQaQlV88QmMdpDGKceWxnU=",
     "authStrategies": [
       "jwt",
-      "local"
+      "local",
+      "local-email",
+      "server-email"
     ],
     "jwtOptions": {
       "header": {
@@ -21,11 +23,19 @@
       "audience": "https://yourdomain.com",
       "issuer": "feathers",
       "algorithm": "HS256",
-      "expiresIn": "1d"
+      "expiresIn": "365d"
     },
     "local": {
       "usernameField": "email",
       "passwordField": "password"
+    },
+    "local-email": {
+      "usernameField": "email",
+      "passwordField": "code"
+    },
+    "server-email":{
+      "usernameField": "email",
+      "passwordField": "code"
     }
   },
   "mongodb": "mongodb://localhost:27017/apis",
@@ -41,6 +51,5 @@
     "password": "skg23444",
     "role": 65535,
     "gender": "Male"
-  },
-  "postgres": "postgres://postgres:@localhost:5432/apis"
+  }
 }

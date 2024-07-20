@@ -16,6 +16,8 @@ import managementSquadsPlayers from './management/squads/players/players.service
 import tournaments from './tournaments/tournaments.service';
 import tournamentTeams from './tournament-teams/tournament-teams.service';
 import events from './events/events.service';
+import otp from './otp/otp.service';
+import sendOtp from './send-otp/send-otp.service';
 // Don't remove this comment. It's needed to format import lines nicely.
 
 export default function (app: Application): void {
@@ -36,4 +38,6 @@ export default function (app: Application): void {
   app.configure(tournaments);
   app.configure(tournamentTeams);
   app.configure(events);
+  app.configure(otp);
+  app.configure(sendOtp);
 }

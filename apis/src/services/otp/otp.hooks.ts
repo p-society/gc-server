@@ -1,17 +1,14 @@
-// Application hooks that run for every service
-// Don't remove this comment. It's needed to format import lines nicely.
-
 import { disallow } from 'feathers-hooks-common';
 
 export default {
   before: {
     all: [],
-    find: [],
-    get: [],
-    create: [],
-    update: [disallow()],
-    patch: [],
-    remove: []
+    find: [disallow()],
+    get: [disallow()],
+    create: [disallow()],
+    update: [],
+    patch: [disallow()],
+    remove: [disallow()]
   },
 
   after: {
