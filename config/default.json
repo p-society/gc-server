@@ -10,10 +10,7 @@
     "entity": "user",
     "service": "users",
     "secret": "XY9Mn0IlEkNfD7pYeV05Nc8exOo=",
-    "authStrategies": [
-      "jwt",
-      "local"
-    ],
+    "authStrategies": ["jwt", "local"],
     "jwtOptions": {
       "header": {
         "typ": "access"
@@ -28,5 +25,5 @@
       "passwordField": "password"
     }
   },
-  "mongodb": "mongodb://localhost:27017/gc_core_api"
+  "mongodb": "mongodb+srv://soubhik:soubhik@sports.vj9j4tb.mongodb.net/?retryWrites=true&w=majority&appName=Sports"
 }
