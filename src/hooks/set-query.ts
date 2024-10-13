@@ -10,8 +10,6 @@ export default (key:String,value:String): Hook => {
     if(query){
       query[`${key}`]=value;
     }
-    else
-    throw new BadRequest('Error with defining query');
     return context;
   };
 };
