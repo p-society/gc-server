@@ -3,6 +3,15 @@ import { Application } from '../../declarations';
 import { BadRequest } from '@feathersjs/errors';
 
 
+enum Gender{
+  'male','female'
+}
+enum Branch{
+  'CSE', 'IT', 'CE','ETC','EEE'
+}
+enum Role{
+  'USER', 'ADMIN', 'UMP', 'SUPER_ADMIN', 'ROOT_ADMIN'
+}
 interface Data {
   email: string,
   firstName: string,
@@ -10,10 +19,10 @@ interface Data {
   password: string,
   otp: string,
   dob: string,
-  gender: ['male' | 'female'],
+  gender: Gender,
   batch: string,
-  branch: ['CSE', 'IT', 'ETC', 'EEE', 'ETC'],
-  role: ['USER', 'ADMIN', 'UMP', 'SUPER_ADMIN', 'ROOT_ADMIN'],
+  branch: Branch,
+  role: Role,
 }
 export class Users extends Service {
   app: Application;
@@ -25,27 +34,16 @@ export class Users extends Service {
 
 
   async create(data: Data, params?: any): Promise<any>{
-    const { email, firstName, lastName, password, otp, dob, gender, batch, branch, role } = data;
+    const { email, firstName, lastName, password, dob, gender, batch, branch, role } = data;
 
-    const existingUser = await this.find({
-      query: { email },
-      paginate: false
-    });
-
-    if (Array.isArray(existingUser) && existingUser.length > 0) throw new BadRequest("User with this email already exists") 
-    const created_User = await this._create({
-      email: email,
-      firstName: firstName,
-      lastName: lastName,
-      password: password,
-      dob: dob,
-      gender: gender,
-      batch: batch,
-      branch: branch
-    })
+    if(!email || !firstName || !lastName || !password || !dob || !gender || !batch || !branch){
+      throw new BadRequest("Incomplete request payload")
+    }
+    
+    const created_user = await super._create(data, params)
 
     return {
-      ...created_User, password:undefined
+      ...created_user, password:undefined
     };
   }
 }
