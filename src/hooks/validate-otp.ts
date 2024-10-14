@@ -7,8 +7,11 @@ export default (options = {}): Hook => {
   return async (context: HookContext) => {
     const {data} = context;
     const {email, otp} = data;
+    if(!email || !otp){
+      throw new BadRequest("Email or OTP not provided");
+    }
     const otpService = context.app.service('otp')
-    const otpEntry_Array = await otpService.find({
+    const otpEntry_Array = await otpService._find({
       query: { email, isConsumed: false },
       sort:{createdAt : -1},
     });

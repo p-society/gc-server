@@ -9,7 +9,7 @@ export default (options = {}): Hook => {
     const {data} = context;
     const {email}  = data;
     const otpService = context.app.service('otp');
-    const otpEntry_Array = await otpService.find({
+    const otpEntry_Array = await otpService._find({
       query:{
         email: email, isConsumed:false,
       },
