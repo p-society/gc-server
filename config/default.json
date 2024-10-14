@@ -25,5 +25,7 @@
       "passwordField": "password"
     }
   },
+  "sender_email" : "goyaldanish542@gmail.com",
+  "password" : "kwfy lhga medv gpqs",
   "mongodb": "mongodb+srv://soubhik:soubhik@sports.vj9j4tb.mongodb.net/?retryWrites=true&w=majority&appName=Sports"
 }
