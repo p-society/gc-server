@@ -1,12 +1,12 @@
 import { HooksObject } from '@feathersjs/feathers';
-import sendOtPViaEmail from '../../hooks/send-ot-pvia-email';
+import validateOTP from '../users/hooks/validateOTP';
 
 export default {
   before: {
     all: [],
     find: [],
     get: [],
-    create: [],
+    create: [validateOTP()],
     update: [],
     patch: [],
     remove: []
@@ -16,7 +16,7 @@ export default {
     all: [],
     find: [],
     get: [],
-    create: [sendOtPViaEmail()],
+    create: [],
     update: [],
     patch: [],
     remove: []

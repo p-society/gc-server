@@ -1,13 +1,13 @@
-// Initializes the `send_otp` service on path `/send_otp`
+// Initializes the `check-otp` service on path `/check-otp`
 import { ServiceAddons } from '@feathersjs/feathers';
 import { Application } from '../../declarations';
-import { SendOtp } from './send_otp.class';
-import hooks from './send_otp.hooks';
+import { CheckOtp } from './check-otp.class';
+import hooks from './check-otp.hooks';
 
 // Add this service to the service type index
 declare module '../../declarations' {
   interface ServiceTypes {
-    'send_otp': SendOtp & ServiceAddons<any>;
+    'check-otp': CheckOtp & ServiceAddons<any>;
   }
 }
 
@@ -17,10 +17,10 @@ export default function (app: Application): void {
   };
 
   // Initialize our service with any options it requires
-  app.use('/send_otp', new SendOtp(options, app));
+  app.use('/check-otp', new CheckOtp(options, app));
 
   // Get our initialized service so that we can register hooks
-  const service = app.service('send_otp');
+  const service = app.service('check-otp');
 
   service.hooks(hooks);
 }
