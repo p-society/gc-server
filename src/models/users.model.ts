@@ -39,7 +39,7 @@ export default function (app: Application): Model<any> {
         enum: ['male', 'female','others'],
       },
       type: {
-        type: String,
+        type: Number,
         enum: RolesEnumList,
         default: RolesEnum.USER,
       },
