@@ -8,14 +8,15 @@ import hooks from './otp.hooks';
 // Add this service to the service type index
 declare module '../../declarations' {
   interface ServiceTypes {
-    'otp': Otp & ServiceAddons<any>;
+    otp: Otp & ServiceAddons<any>;
   }
 }
 
 export default function (app: Application): void {
   const options = {
     Model: createModel(app),
-    paginate: app.get('paginate')
+    paginate: app.get('paginate'),
+    whitelist: ['$regex', '$options', '$populate'],
   };
 
   // Initialize our service with any options it requires
