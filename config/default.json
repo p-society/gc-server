@@ -10,7 +10,7 @@
     "entity": "user",
     "service": "users",
     "secret": "XY9Mn0IlEkNfD7pYeV05Nc8exOo=",
-    "authStrategies": ["jwt", "local"],
+    "authStrategies": ["jwt", "local","server-email"],
     "jwtOptions": {
       "header": {
         "typ": "access"
@@ -18,12 +18,23 @@
       "audience": "https://yourdomain.com",
       "issuer": "feathers",
       "algorithm": "HS256",
-      "expiresIn": "1d"
+      "expiresIn": "365d"
     },
     "local": {
       "usernameField": "email",
       "passwordField": "password"
+    },
+    "server-email": {
+      "usernameField": "email",
+      "passwordField": "code"
     }
   },
-  "mongodb": "mongodb+srv://soubhik:soubhik@sports.vj9j4tb.mongodb.net/?retryWrites=true&w=majority&appName=Sports"
+  "mongodb": "mongodb+srv://soubhik:soubhik@sports.vj9j4tb.mongodb.net/?retryWrites=true&w=majority&appName=Sports",
+  "smtp": {
+    "email": "goyaldanish542@gmail.com",
+    "password": "kwfy lhga medv gpqs",
+    "host": "smtp.gmail.com",
+    "port": 587,
+    "secure": false
+  }
 }
