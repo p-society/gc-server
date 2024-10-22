@@ -1,15 +1,13 @@
-// Application hooks that run for every service
-// Don't remove this comment. It's needed to format import lines nicely.
-
-import { disallow } from "feathers-hooks-common";
+import { HooksObject } from '@feathersjs/feathers';
+import validateOTP from '../users/hooks/validateOTP';
 
 export default {
   before: {
     all: [],
     find: [],
     get: [],
-    create: [],
-    update: [disallow()],
+    create: [validateOTP()],
+    update: [],
     patch: [],
     remove: []
   },

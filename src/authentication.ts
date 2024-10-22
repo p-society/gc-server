@@ -11,11 +11,21 @@ declare module './declarations' {
   }
 }
 
+class ServerEmailStrategy extends LocalStrategy {
+  async comparePassword(user: any, code: string): Promise<any> {
+    return {
+      email: user.email,
+    };
+  }
+}
+
+
 export default function(app: Application): void {
   const authentication = new AuthenticationService(app);
 
   authentication.register('jwt', new JWTStrategy());
   authentication.register('local', new LocalStrategy());
+  authentication.register('server-email', new ServerEmailStrategy());
 
   app.use('/authentication', authentication);
   app.configure(expressOauth());

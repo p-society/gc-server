@@ -1,29 +1,26 @@
-// Initializes the `otp` service on path `/otp`
+// Initializes the `check-otp` service on path `/check-otp`
 import { ServiceAddons } from '@feathersjs/feathers';
 import { Application } from '../../declarations';
-import { Otp } from './otp.class';
-import createModel from '../../models/otp.model';
-import hooks from './otp.hooks';
+import { CheckOtp } from './check-otp.class';
+import hooks from './check-otp.hooks';
 
 // Add this service to the service type index
 declare module '../../declarations' {
   interface ServiceTypes {
-    otp: Otp & ServiceAddons<any>;
+    'check-otp': CheckOtp & ServiceAddons<any>;
   }
 }
 
 export default function (app: Application): void {
   const options = {
-    Model: createModel(app),
-    paginate: app.get('paginate'),
-    whitelist: ['$regex', '$options', '$populate'],
+    paginate: app.get('paginate')
   };
 
   // Initialize our service with any options it requires
-  app.use('/otp', new Otp(options, app));
+  app.use('/check-otp', new CheckOtp(options, app));
 
   // Get our initialized service so that we can register hooks
-  const service = app.service('otp');
+  const service = app.service('check-otp');
 
   service.hooks(hooks);
 }

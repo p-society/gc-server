@@ -1,6 +1,6 @@
 import { HooksObject } from '@feathersjs/feathers';
 import * as authentication from '@feathersjs/authentication';
-import auth from '../../hooks/auth';
+import { disallow } from 'feathers-hooks-common';
 // Don't remove this comment. It's needed to format import lines nicely.
 
 const { authenticate } = authentication.hooks;
@@ -8,12 +8,12 @@ const { authenticate } = authentication.hooks;
 export default {
   before: {
     all: [],
-    find: [],
-    get: [],
-    create: [auth()],
+    find: [disallow()],
+    get: [disallow()],
+    create: [],
     update: [],
-    patch: [],
-    remove: []
+    patch: [disallow()],
+    remove: [disallow()],
   },
 
   after: {
@@ -23,7 +23,7 @@ export default {
     create: [],
     update: [],
     patch: [],
-    remove: []
+    remove: [],
   },
 
   error: {
@@ -33,6 +33,6 @@ export default {
     create: [],
     update: [],
     patch: [],
-    remove: []
-  }
+    remove: [],
+  },
 };

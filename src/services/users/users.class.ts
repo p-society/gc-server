@@ -30,20 +30,6 @@ export class Users extends Service {
   constructor(options: Partial<MongooseServiceOptions>, app: Application) {
     super(options);
     this.app = app;
-  }
 
-
-  async create(data: Data, params?: any): Promise<any>{
-    const { email, firstName, lastName, password, dob, gender, batch, branch, role } = data;
-
-    if(!email || !firstName || !lastName || !password || !dob || !gender || !batch || !branch){
-      throw new BadRequest("Incomplete request payload")
-    }
-    
-    const created_user = await super._create(data, params)
-
-    return {
-      ...created_user, password:undefined
-    };
   }
 }
