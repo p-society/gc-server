@@ -23,9 +23,9 @@ export default function (app: Application): Model<any> {
     link:{
       type:String,
     },
-    tags:[{
-      type:String,
-    }],
+    tags:{
+      type:[String],
+    },
     startDate:{
       type:Date
     },

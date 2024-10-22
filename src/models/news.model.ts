@@ -32,20 +32,20 @@ export default function (app: Application): Model<any> {
       type:Date,
       required:true,
     },
-    photos:[{
-      type:String
-    }],
-    tags:[{
-      type:String
-    }],
-    likes:[{
-      type: mongooseClient.Schema.Types.ObjectId,
+    photos:{
+      type:[String]
+    },
+    tags:{
+      type:[String]
+    },
+    likes:{
+      type: [mongooseClient.Schema.Types.ObjectId],
       ref:"users"
-    }],
-    comments:[{
-      type: mongooseClient.Schema.Types.ObjectId,
+    },
+    comments:{
+      type: [mongooseClient.Schema.Types.ObjectId],
       ref:"users"
-    }]
+    }
 
   }, {
     timestamps: true
