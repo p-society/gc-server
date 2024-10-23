@@ -1,4 +1,4 @@
-enum RolesEnum {
+export enum RolesEnum {
     USER = 1,
     ADMIN = 512,
     SUPER_ADMIN = 32768,

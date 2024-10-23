@@ -30,5 +30,6 @@ export class Users extends Service {
   constructor(options: Partial<MongooseServiceOptions>, app: Application) {
     super(options);
     this.app = app;
+
   }
 }
