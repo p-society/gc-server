@@ -10,8 +10,8 @@ export default function (app: Application): Model<any> {
   const mongooseClient: Mongoose = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const schema = new Schema({
-    team_id: { type: String, required: true },
-    user_id: { type: String, required: true },
+    squad: { type: Schema.Types.ObjectId,ref:'squad', required: true },
+    user: { type: Schema.Types.ObjectId,ref:'users', required: true },
     isCaptain: { type: Boolean, required: true },
   }, {
     timestamps: true

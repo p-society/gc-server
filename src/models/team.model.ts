@@ -12,10 +12,10 @@ export default function (app: Application): Model<any> {
   const schema = new Schema({
     branch: { type: String, required: true },
     game: { type: String, required: true },
-    createdBy: { type: String, required: true },
-    deleted: { type: String, required: true },
-    deletedBy: { type: String},
-    deletedAt: { type: String}
+    createdBy: { type: Schema.Types.ObjectId,ref:'users'},
+    deleted: { type: Boolean, required: true },
+    deletedBy: { type: Schema.Types.ObjectId,ref:'users'},
+    deletedAt: { type: String }
   }, {
     timestamps: true
   });
