@@ -29,6 +29,7 @@
       "passwordField": "code"
     }
   },
+
   "mongodb": "mongodb+srv://soubhik:soubhik@sports.vj9j4tb.mongodb.net/?retryWrites=true&w=majority&appName=Sports",
   "smtp": {
     "email": "goyaldanish542@gmail.com",
